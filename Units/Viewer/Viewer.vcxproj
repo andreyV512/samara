@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DAA03915-410A-48B4-A948-8F9F5868C0EB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Viewer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)../Defectoscope/;$(ProjectDir)..\..\Common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <LargeAddressAware>true</LargeAddressAware>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp" />
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp" />
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\..\Common\DlgTemplates\DlgItems.cpp" />
+    <ClCompile Include="..\..\Common\DlgTemplates\EditDlg.cpp" />
+    <ClCompile Include="..\..\Common\DlgTemplates\ParamDlg.cpp" />
+    <ClCompile Include="..\..\Common\FFT\FFT.cpp" />
+    <ClCompile Include="..\..\Common\Filtre\MedianFiltre.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\BarSeries.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\Borders.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\Chart.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\ColorLabel.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\EmptyLeftAxes.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\FixedGridSeries.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\Gate.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\GridChart.cpp" />
+    <ClCompile Include="..\..\Common\Graphics\StepSeries.cpp" />
+    <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
+    <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\GetHostByName.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetClient.cpp" />
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp" />
+    <ClCompile Include="..\..\Common\templates\Hash.cpp" />
+    <ClCompile Include="..\..\Common\tools\SaveScreenToJpeg.cpp" />
+    <ClCompile Include="..\..\Common\USPC\LogUSPC.cpp" />
+    <ClCompile Include="..\..\Common\USPC\Registry.cpp" />
+    <ClCompile Include="..\..\Common\USPC\USPC.cpp" />
+    <ClCompile Include="..\..\Common\USPC\ut_files.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\AnimationControl.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Button.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\DropDownItem.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\EmptyWindow.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Grid.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\GridItems.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\HookKey.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\InRect.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\ProcessRun.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\SelectTypeSizeList.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\ToolBarButton.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Zip.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\ZipAll.cpp" />
+    <ClCompile Include="..\Defectoscope\App\AppBase.cpp" />
+    <ClCompile Include="..\Defectoscope\App\VersionDiff.cpp" />
+    <ClCompile Include="..\Defectoscope\Automat\AppKeyHandler.cpp" />
+    <ClCompile Include="..\Defectoscope\Automat\AutomatAdditional.cpp" />
+    <ClCompile Include="..\Defectoscope\Automat\RestartService.cpp" />
+    <ClCompile Include="..\Defectoscope\Compute\Compute.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\AboutWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\AnalogPlateDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\BaseLengthDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\BrackStrobe2Dlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\ColorItemsDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\DeadZonesDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\MedianFiltreDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\NumberTubeDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\OffsetsSensors.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\ProtectiveThickeningDlg.cpp" />
+    <ClCompile Include="..\Defectoscope\Dialogs\StoredLoadData.cpp" />
+    <ClCompile Include="..\Defectoscope\ItemsData\ConstData.cpp" />
+    <ClCompile Include="..\Defectoscope\ItemsData\DataThicknessViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\ItemsData\DataViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\ItemsData\ResultData.cpp" />
+    <ClCompile Include="..\Defectoscope\ItemsData\USPCData.cpp" />
+    <ClCompile Include="..\Defectoscope\Log\LogBuffer.cpp" />
+    <ClCompile Include="..\Defectoscope\Log\LogMessages.cpp" />
+    <ClCompile Include="..\Defectoscope\Log\LogMessageToTopLabel.cpp" />
+    <ClCompile Include="..\Defectoscope\MessageText\SelectMessage.cpp" />
+    <ClCompile Include="..\Defectoscope\Stored\PacketBase.cpp" />
+    <ClCompile Include="..\Defectoscope\Stored\ProtocolTable.cpp" />
+    <ClCompile Include="..\Defectoscope\Stored\Stored.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\Common.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\CrossThresholdWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\CrossViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\CrossWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\GridWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\LineViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\LogUSPCWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\LogUSPCWindowGrid.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\LongThresholdWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\LongViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\LongWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\PacketWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ResultViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ScanWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ScanWindowToolBar.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ThicknessThresholdWindow .cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ThicknessViewer.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ThicknessWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\ThresholdWindow.cpp" />
+    <ClCompile Include="..\Defectoscope\Windows\TopLabelViewer.cpp" />
+    <ClCompile Include="DiffApp\App.cpp" />
+    <ClCompile Include="DiffStored\LoadFromBase.cpp" />
+    <ClCompile Include="DiffWindows\MainWindow.cpp" />
+    <ClCompile Include="DiffWindows\MainWindowToolBar.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Viewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\Base\Base.hpp" />
+    <ClInclude Include="..\..\Common\Base\ExpressBase.hpp" />
+    <ClInclude Include="..\..\Common\Base\tables.hpp" />
+    <ClInclude Include="..\..\Common\Base\TablesDefine.h" />
+    <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp" />
+    <ClInclude Include="..\..\Common\Communication\ServerHandler.h" />
+    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h" />
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\dlg.hpp" />
+    <ClInclude Include="..\..\Common\DlgTemplates\DlgItems.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\DlgTemplate.hpp" />
+    <ClInclude Include="..\..\Common\DlgTemplates\dlg_templates.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\EditDlg.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.h" />
+    <ClInclude Include="..\..\Common\DlgTemplates\ParamDlg.hpp" />
+    <ClInclude Include="..\..\Common\DlgTemplates\TabWidgets.h" />
+    <ClInclude Include="..\..\Common\FFT\FFT.h" />
+    <ClInclude Include="..\..\Common\Filtre\MedianFiltre.h" />
+    <ClInclude Include="..\..\Common\Graphics\BarSeries.h" />
+    <ClInclude Include="..\..\Common\Graphics\Borders.h" />
+    <ClInclude Include="..\..\Common\Graphics\Chart.h" />
+    <ClInclude Include="..\..\Common\Graphics\Chart.hpp" />
+    <ClInclude Include="..\..\Common\Graphics\ColorLabel.h" />
+    <ClInclude Include="..\..\Common\Graphics\EmptyLeftAxes.h" />
+    <ClInclude Include="..\..\Common\Graphics\FixedGridSeries.h" />
+    <ClInclude Include="..\..\Common\Graphics\Gate.h" />
+    <ClInclude Include="..\..\Common\Graphics\GridChart.h" />
+    <ClInclude Include="..\..\Common\Graphics\StepSeries.h" />
+    <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
+    <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\CommonTCP.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\GetHostByName.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\InitTcp.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetClient.h" />
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetFrame.h" />
+    <ClInclude Include="..\..\Common\templates\Hash.h" />
+    <ClInclude Include="..\..\Common\templates\templates.hpp" />
+    <ClInclude Include="..\..\Common\templates\typelist.hpp" />
+    <ClInclude Include="..\..\Common\tools\SaveScreenToJpeg.h" />
+    <ClInclude Include="..\..\Common\USPC\LogUSPC.h" />
+    <ClInclude Include="..\..\Common\USPC\Registry.h" />
+    <ClInclude Include="..\..\Common\USPC\USPC.h" />
+    <ClInclude Include="..\..\Common\USPC\uspc7100_exports.h" />
+    <ClInclude Include="..\..\Common\USPC\ut_files.h" />
+    <ClInclude Include="..\..\Common\window_tool\AnimationControl.h" />
+    <ClInclude Include="..\..\Common\window_tool\Button.h" />
+    <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h" />
+    <ClInclude Include="..\..\Common\window_tool\DlgFiles.h" />
+    <ClInclude Include="..\..\Common\window_tool\DropDownItem.h" />
+    <ClInclude Include="..\..\Common\window_tool\Emptywindow.h" />
+    <ClInclude Include="..\..\Common\window_tool\Grid.h" />
+    <ClInclude Include="..\..\Common\window_tool\GridItems.h" />
+    <ClInclude Include="..\..\Common\window_tool\GridNotify.hpp" />
+    <ClInclude Include="..\..\Common\window_tool\HookKey.h" />
+    <ClInclude Include="..\..\Common\window_tool\InitToolbar.hpp" />
+    <ClInclude Include="..\..\Common\window_tool\InRect.h" />
+    <ClInclude Include="..\..\Common\window_tool\MenuAPI.h" />
+    <ClInclude Include="..\..\Common\window_tool\message.h" />
+    <ClInclude Include="..\..\Common\window_tool\MessagesInterface.h" />
+    <ClInclude Include="..\..\Common\window_tool\Notify.h" />
+    <ClInclude Include="..\..\Common\window_tool\Pass.h" />
+    <ClInclude Include="..\..\Common\window_tool\ProcessRun.h" />
+    <ClInclude Include="..\..\Common\window_tool\RadioBtnWidget.h" />
+    <ClInclude Include="..\..\Common\window_tool\SelectTypeSizeList.h" />
+    <ClInclude Include="..\..\Common\window_tool\TabControlUnits.h" />
+    <ClInclude Include="..\..\Common\window_tool\ToolBarButton.h" />
+    <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
+    <ClInclude Include="..\..\Common\window_tool\Zip.h" />
+    <ClInclude Include="..\..\Common\window_tool\ZipAll.h" />
+    <ClInclude Include="..\Defectoscope\App\AppBase.h" />
+    <ClInclude Include="..\Defectoscope\App\Config.h" />
+    <ClInclude Include="..\Defectoscope\App\TablesDefine.h" />
+    <ClInclude Include="..\Defectoscope\App\VersionDiff.h" />
+    <ClInclude Include="..\Defectoscope\Automat\AppKeyHandler.h" />
+    <ClInclude Include="..\Defectoscope\Automat\AutomatAdditional.h" />
+    <ClInclude Include="..\Defectoscope\Automat\RestartService.h" />
+    <ClInclude Include="..\Defectoscope\Compute\Compute.h" />
+    <ClInclude Include="..\Defectoscope\Dialogs\Dialogs.h" />
+    <ClInclude Include="..\Defectoscope\Dialogs\NumberTubeDlg.h" />
+    <ClInclude Include="..\Defectoscope\GridData\PacketTemplateData.hpp" />
+    <ClInclude Include="..\Defectoscope\ItemsData\ConstData.h" />
+    <ClInclude Include="..\Defectoscope\ItemsData\DataViewer.h" />
+    <ClInclude Include="..\Defectoscope\ItemsData\ResultData.h" />
+    <ClInclude Include="..\Defectoscope\ItemsData\USPCData.h" />
+    <ClInclude Include="..\Defectoscope\Log\LogBuffer.h" />
+    <ClInclude Include="..\Defectoscope\Log\LogMessages.h" />
+    <ClInclude Include="..\Defectoscope\Log\LogMessageToTopLabel.h" />
+    <ClInclude Include="..\Defectoscope\MessageText\LabelMessage.h" />
+    <ClInclude Include="..\Defectoscope\MessageText\SelectMessage.h" />
+    <ClInclude Include="..\Defectoscope\Stored\PacketBase.h" />
+    <ClInclude Include="..\Defectoscope\Stored\ProtocolTable.h" />
+    <ClInclude Include="..\Defectoscope\Stored\Stored.h" />
+    <ClInclude Include="..\Defectoscope\Stored\StoredBase.h" />
+    <ClInclude Include="..\Defectoscope\Windows\AxesDlg.hpp" />
+    <ClInclude Include="..\Defectoscope\Windows\Common.h" />
+    <ClInclude Include="..\Defectoscope\Windows\CrossThresholdWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\CrossViewer.h" />
+    <ClInclude Include="..\Defectoscope\Windows\CrossWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\GridWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\LineChart.hpp" />
+    <ClInclude Include="..\Defectoscope\Windows\LineViewer.h" />
+    <ClInclude Include="..\Defectoscope\Windows\LogUSPCWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\LogUSPCWindowGrid.h" />
+    <ClInclude Include="..\Defectoscope\Windows\LogUSPCWindowMenu.hpp" />
+    <ClInclude Include="..\Defectoscope\Windows\LongThresholdWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\LongViewer.h" />
+    <ClInclude Include="..\Defectoscope\Windows\LongWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\PacketTemplateWindow.hpp" />
+    <ClInclude Include="..\Defectoscope\Windows\PacketWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ResultViewer.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ScanWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ScanWindowToolBar.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ThicknessThresholdWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ThicknessViewer.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ThicknessWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ThresholdWindow.h" />
+    <ClInclude Include="..\Defectoscope\Windows\TopLabelViewer.h" />
+    <ClInclude Include="..\Defectoscope\Windows\ViewersMenu.hpp" />
+    <ClInclude Include="..\Defect\DiffWindows\MainWindowToolBar.h" />
+    <ClInclude Include="..\Defect\Resource.h" />
+    <ClInclude Include="..\Defect\stdafx.h" />
+    <ClInclude Include="..\Defect\targetver.h" />
+    <ClInclude Include="DiffApp\App.h" />
+    <ClInclude Include="DiffStored\LoadFromBase.h" />
+    <ClInclude Include="DiffWindows\MainWindow.h" />
+    <ClInclude Include="DiffWindows\MainWindowMenu.hpp" />
+    <ClInclude Include="DiffWindows\MainWindowToolBar.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Viewer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\Defectoscope\Defectoscope.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Common\Resource\arrow_down.bmp" />
+    <None Include="..\..\Common\Resource\arrow_left.bmp" />
+    <None Include="..\..\Common\Resource\arrow_right.bmp" />
+    <None Include="..\..\Common\Resource\arrow_up.bmp" />
+    <None Include="..\..\common\resource\bitmap3.bmp" />
+    <None Include="..\..\Common\Resource\BottomArr.bmp" />
+    <None Include="..\..\Common\Resource\clamp.bmp" />
+    <None Include="..\..\Common\Resource\Clamp1OnBtn.bmp" />
+    <None Include="..\..\Common\Resource\Clamp2OnBtn.bmp" />
+    <None Include="..\..\Common\Resource\continue.bmp" />
+    <None Include="..\..\Common\Resource\CycleBtn.bmp" />
+    <None Include="..\..\Common\Resource\DownArrow.bmp" />
+    <None Include="..\..\Common\Resource\ExitTubeBtn.bmp" />
+    <None Include="..\..\Common\Resource\LeftArr.bmp" />
+    <None Include="..\..\Common\Resource\LeftArrow.bmp" />
+    <None Include="..\..\Common\Resource\MashBtn.bmp" />
+    <None Include="..\..\Common\Resource\OptionsBtn.bmp" />
+    <None Include="..\..\Common\Resource\POSTITL.ICO" />
+    <None Include="..\..\Common\Resource\QueryBtn.bmp" />
+    <None Include="..\..\Common\Resource\RefreshBtn.bmp" />
+    <None Include="..\..\Common\Resource\ResetBtn.bmp" />
+    <None Include="..\..\Common\Resource\RightArr.bmp" />
+    <None Include="..\..\Common\Resource\RightArrow.bmp" />
+    <None Include="..\..\Common\Resource\SensorsUnit.bmp" />
+    <None Include="..\..\Common\Resource\sep.bmp" />
+    <None Include="..\..\Common\Resource\settings.ico" />
+    <None Include="..\..\Common\Resource\TopArr.bmp" />
+    <None Include="..\..\Common\Resource\UpArrow.bmp" />
+    <None Include="..\..\Common\Resource\upload.avi">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\..\Common\Resource\upload.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

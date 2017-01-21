@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{8fbb8bce-0dba-4703-b9aa-4958d28fd71b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device">
+      <UniqueIdentifier>{f98fec4b-af52-4b10-b0c6-c3ecfab37ebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device\Inc">
+      <UniqueIdentifier>{ccbdf1c1-8448-467c-87b4-c6c4a632e793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service">
+      <UniqueIdentifier>{90510109-6acf-4d47-af6e-07578cbf4c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service\Communication">
+      <UniqueIdentifier>{bae41838-bcff-4556-ae4f-ef6f0df2b699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service\Communication\ServiceProtocol">
+      <UniqueIdentifier>{83f1f04b-9a7d-4abf-821f-88e0d06c75f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Service\ProtocolTCP">
+      <UniqueIdentifier>{51c8e64a-2498-409c-8076-fc3ed545ee9a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App\AppBase.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="App\BitBM.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="App\App.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMess.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\1730\inc\BDaqCL.h">
+      <Filter>Device\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\1730\Device1730.h">
+      <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Defectoscope\Automat\RestartService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp">
+      <Filter>Service\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Communication\ServerHandler.h">
+      <Filter>Service\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h">
+      <Filter>Service\Communication\ServiceProtocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\CommonTCP.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\GetHostByName.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\InitTcp.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetClient.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\ProtocolTCP\NetFrame.h">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\USPC\Registry.h">
+      <Filter>App</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RunUSPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="App\AppBase.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="App\BitBM.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="App\App.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\1730\Device1730.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Defectoscope\Automat\RestartService.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp">
+      <Filter>Service\Communication\ServiceProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp">
+      <Filter>Service\Communication\ServiceProtocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\GetHostByName.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\InitTcp.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetClient.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\ProtocolTCP\NetFrame.cpp">
+      <Filter>Service\ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\USPC\Registry.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

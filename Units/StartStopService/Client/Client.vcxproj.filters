@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ProtocolTCP">
+      <UniqueIdentifier>{68f871e3-3e5b-4d8e-82cd-64f1b7dc6308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{ffcb9106-3c89-4878-96be-e250d73ff433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Server\ServerItems">
+      <UniqueIdentifier>{42f4a779-e0d9-4375-a320-7d34c38822f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\AsyncServer.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\CommonTCP.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\Frame.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\GetHostByName.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\InitTcp.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\NetClient.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ProtocolTCP\NetFrame.h">
+      <Filter>ProtocolTCP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\service\Server\ServerHandler.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Communication\ServiceProtocol\ServiceProtocol.h">
+      <Filter>Server\ServerItems</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugMess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Communication\IPprotocolProcedureList.hpp">
+      <Filter>Server\ServerItems</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\AsyncServer.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\CommonTCP.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\Frame.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\GetHostByName.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\InitTcp.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\NetClient.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ProtocolTCP\NetFrame.cpp">
+      <Filter>ProtocolTCP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\service\Server\ServerHandler.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Communication\ServiceProtocol\ServiceClient.cpp">
+      <Filter>Server\ServerItems</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Communication\ServiceProtocol\ServiceServer.cpp">
+      <Filter>Server\ServerItems</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1905CD7B-4775-4D79-ADC9-A24266EB457F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Messages</RootNamespace>
+    <ProjectName>DefectoscopeMessages</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\Defectoscope\Log;..\..\Common\Base;Windows;AppMess;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;..\..\Common\window_tool;$(ProjectDir)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\Defectoscope\Log;..\..\Common\Base;Windows;$(ProjectDir)AppMess;..\..\Common\Ini;Dlg;..\..\Common\debug_tools;..\..\Common\templates;..\..\Common\window_tool</AdditionalIncludeDirectories>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <OmitFramePointers>true</OmitFramePointers>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
+    <ClCompile Include="..\..\Common\Ini\ItemIni.cpp" />
+    <ClCompile Include="..\..\Common\Ini\WindowsPosition.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\DlgFiles.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\EmptyWindow.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Grid.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\GridItems.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\InRect.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\MenuAPI.cpp" />
+    <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
+    <ClCompile Include="..\Defectoscope\Log\LogBuffer.cpp" />
+    <ClCompile Include="..\Defectoscope\Log\LogMessages.cpp" />
+    <ClCompile Include="AppMess\App.cpp" />
+    <ClCompile Include="Dlg\DlgProc.cpp" />
+    <ClCompile Include="MessagesLog.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Messages;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Disabled</Optimization>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Windows\MainWindow.cpp" />
+    <ClCompile Include="Windows\MainWindowGrid.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\Base\Base.hpp" />
+    <ClInclude Include="..\..\Common\Base\ExpressBase.hpp" />
+    <ClInclude Include="..\..\Common\Base\tables.hpp" />
+    <ClInclude Include="..\..\Common\Base\TablesDefine.h" />
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
+    <ClInclude Include="..\..\Common\Ini\ItemIni.h" />
+    <ClInclude Include="..\..\Common\Ini\WindowsPosition.h" />
+    <ClInclude Include="..\..\Common\templates\typelist.hpp" />
+    <ClInclude Include="..\..\Common\window_tool\CheckBoxWidget.h" />
+    <ClInclude Include="..\..\Common\window_tool\DlgFiles.h" />
+    <ClInclude Include="..\..\Common\window_tool\Emptywindow.h" />
+    <ClInclude Include="..\..\Common\window_tool\Grid.h" />
+    <ClInclude Include="..\..\Common\window_tool\GridItems.h" />
+    <ClInclude Include="..\..\Common\window_tool\GridNotify.hpp" />
+    <ClInclude Include="..\..\Common\window_tool\InitToolbar.hpp" />
+    <ClInclude Include="..\..\Common\window_tool\InRect.h" />
+    <ClInclude Include="..\..\Common\window_tool\MenuAPI.h" />
+    <ClInclude Include="..\..\Common\window_tool\message.h" />
+    <ClInclude Include="..\..\Common\window_tool\Notify.h" />
+    <ClInclude Include="..\..\Common\window_tool\Pass.h" />
+    <ClInclude Include="..\..\Common\window_tool\TabWidgets.h" />
+    <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
+    <ClInclude Include="..\Defectoscope\Log\LogBuffer.h" />
+    <ClInclude Include="..\Defectoscope\Log\LogMessages.h" />
+    <ClInclude Include="AppMess\App.h" />
+    <ClInclude Include="AppMess\config.h" />
+    <ClInclude Include="Dlg\Dialogs.h" />
+    <ClInclude Include="MessagesLog.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Windows\MainWindow.h" />
+    <ClInclude Include="Windows\MainWindowGrid.h" />
+    <ClInclude Include="Windows\MainWindowMenu.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Messages.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
