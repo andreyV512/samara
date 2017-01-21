@@ -2,10 +2,10 @@
 #pragma warning(disable :4995)
 #pragma warning(disable :4996)
 #include "Dialogs.h"
-#include "MainWindow.h"
+#include "Windows\MainWindow.h"
 #include <Shlwapi.h>
 #include <locale>
-#include "LogBuffer.h"
+#include "Log\LogBuffer.h"
 
 void SaveDateFile::Do(HWND h)
 {

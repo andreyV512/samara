@@ -1,6 +1,6 @@
 #pragma once
-#include "Dialogs.h"
-#include "WindowsPosition.h"
+#include "Dlg\Dialogs.h"
+#include "Ini/WindowsPosition.h"
 namespace MainWindowMenu
 {
 struct MainFile{};

@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "MainWindow.h"
-#include "MenuApi.h"
-#include "EmptyWindow.h"
-#include "LogBuffer.h"
+#include "window_tool/MenuApi.h"
+#include "window_tool/EmptyWindow.h"
+#include "Log/LogBuffer.h"
 #include "MainWindowMenu.hpp"
 
-#include "DebugMess.h"
+#include "debug_tools/DebugMess.h"
 //------------------------------------------------------------------------
 MainWindow::MainWindow()
 {

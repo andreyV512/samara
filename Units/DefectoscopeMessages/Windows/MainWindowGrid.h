@@ -1,6 +1,6 @@
 #pragma once
-#include "GridNotify.hpp"
-#include "LogMessages.h"
+#include "window_tool\GridNotify.hpp"
+#include "Log\LogMessages.h"
 
 class MainWindowGrid
 {

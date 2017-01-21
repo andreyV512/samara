@@ -1,10 +1,10 @@
 #include "StdAfx.h"
 #include "App.h"
-#include "MainWindow.h"
-#include "EmptyWindow.h"
-#include "DebugMess.h"
-#include "LogBuffer.h"
-#include "WindowsPosition.h"
+#include "Windows\MainWindow.h"
+#include "window_tool\EmptyWindow.h"
+#include "debug_tools/DebugMess.h"
+#include "Log\LogBuffer.h"
+#include "Ini\WindowsPosition.h"
 
 namespace{
 	MainWindow mainWindow;
