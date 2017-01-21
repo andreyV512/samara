@@ -16,6 +16,8 @@ ThicknessData::ThicknessData(int &filterWidth, bool &filterOn
 	, aboveBorder  (aboveBorder)
 	, lowerBorder  (lowerBorder)
 	, nominalBorder(nominalBorder)
+	, count(0)
+	, zone(0)
 {}
 
 void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s)

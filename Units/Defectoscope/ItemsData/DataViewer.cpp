@@ -25,6 +25,8 @@ DefectData::DefectData(int &filterWidth, bool &filterOn, double (&brak)[App::cou
 	, medianFiltreOn(filterOn)
 	, brackThreshold(brak) 
 	, klass2Threshold(klass2)
+	, count(0)
+	, zone(0)
 {}
 
 void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int maxOffs, USPC7100_ASCANDATAHEADER *s

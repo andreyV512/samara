@@ -1,2 +1,2 @@
 #pragma once 
-#define VERSION() L"—борка "
+#define VERSION() L"—борка c5b0981"
