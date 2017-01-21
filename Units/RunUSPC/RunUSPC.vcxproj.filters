@@ -34,6 +34,9 @@
     <Filter Include="Service\ProtocolTCP">
       <UniqueIdentifier>{51c8e64a-2498-409c-8076-fc3ed545ee9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="debug_tools">
+      <UniqueIdentifier>{673d4570-8729-4721-a645-6ad50235533d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -102,6 +105,9 @@
     <ClInclude Include="..\..\Common\USPC\Registry.h">
       <Filter>App</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h">
+      <Filter>debug_tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -154,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Common\USPC\Registry.cpp">
       <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
+      <Filter>debug_tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

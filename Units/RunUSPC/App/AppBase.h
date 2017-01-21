@@ -1,7 +1,7 @@
 #pragma once
 
-#include "tables.hpp"
-#include "TablesDefine.h"
+#include "Base/tables.hpp"
+#include "Base/TablesDefine.h"
 
 
  DEFINE_PARAM(Descriptor1730, unsigned, 0)

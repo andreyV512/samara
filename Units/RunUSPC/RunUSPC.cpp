@@ -3,9 +3,9 @@
 
 #include "stdafx.h"
 #include <stdio.h>
-#include "App.h"
-#include "Registry.h"
-#include "InitTcp.h"
+#include "App/App.h"
+#include "USPC\Registry.h"
+#include "ProtocolTCP\InitTcp.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {

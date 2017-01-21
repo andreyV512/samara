@@ -64,7 +64,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\Base;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)..\Defectoscope\Automat;$(ProjectDir)..\..\Common\ProtocolTCP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)../Defectoscope/;$(ProjectDir)..\..\Common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,6 +82,7 @@
     <ClInclude Include="..\..\Common\Communication\IPprotocolProcedureList.hpp" />
     <ClInclude Include="..\..\Common\Communication\ServerHandler.h" />
     <ClInclude Include="..\..\Common\Communication\ServiceProtocol\ServiceProtocol.h" />
+    <ClInclude Include="..\..\Common\debug_tools\DebugMess.h" />
     <ClInclude Include="..\..\Common\ProtocolTCP\AsyncServer.h" />
     <ClInclude Include="..\..\Common\ProtocolTCP\CommonTCP.h" />
     <ClInclude Include="..\..\Common\ProtocolTCP\Frame.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="..\..\Common\1730\Device1730.cpp" />
     <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceClient.cpp" />
     <ClCompile Include="..\..\Common\Communication\ServiceProtocol\ServiceServer.cpp" />
+    <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp" />
     <ClCompile Include="..\..\Common\ProtocolTCP\AsyncServer.cpp" />
     <ClCompile Include="..\..\Common\ProtocolTCP\CommonTCP.cpp" />
     <ClCompile Include="..\..\Common\ProtocolTCP\Frame.cpp" />

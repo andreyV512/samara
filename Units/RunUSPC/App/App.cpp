@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "App.h"
 #include "AppBase.h"
-#include "Device1730.h"
-#include "RestartService.h"
+#include "1730/Device1730.h"
+#include "Automat/RestartService.h"
 #include "DebugMess.h"
 
 bool App::Init()
