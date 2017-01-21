@@ -34,6 +34,7 @@ void DefectData::Set(int zone_, int start, int stop, int channel, int offs, int 
 	, USPCViewerData &d
 	)
 {
+	if(zone_ < 0 || zone_ >= App::count_zones) return;
 	zone = zone_;
 	stop += offs;
 	int cnt = 0;
