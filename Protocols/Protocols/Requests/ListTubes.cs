@@ -13,8 +13,8 @@ namespace Protocols.Requests
         static public IEnumerable<TubesView> Get(long protocols, string packet)
         {
             string query = "SELECT tt.NumberTube, tt.Date_Time"
-               + " FROM [StoredBase].[dbo].[TubesTable] tt"
-               + " JOIN [StoredBase].[dbo].[ProtocolsTable] pt"
+               + " FROM TubesTable tt"
+               + " JOIN ProtocolsTable pt"
                + " ON tt.IDProtocolsTable = pt.ID"
                + " WHERE pt.NumberPacket = @packet"
                + " ORDER BY tt.Date_Time";

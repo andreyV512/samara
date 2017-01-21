@@ -155,7 +155,7 @@ namespace Stored
 		Insert_Into<StoredMeshureTable>(t, base).Execute();
 		unsigned id = 0;
 		CMD(base).CommandText(
-			L"SELECT max([ID]) as ID_LAST FROM [StoredBase].[dbo].[StoredMeshureTable]"
+			L"SELECT max([ID]) as ID_LAST FROM [StoredMeshureTable]"
 			).Execute().GetValue(L"ID_LAST", id);
 		return id;
 	}
@@ -215,12 +215,12 @@ namespace Stored
 		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMin, sizeof(MinMaxThickness::type_value));
 		Insert_Into<ThicknessTable>(tt, base).Execute();
 		int minID = 0;
-		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").Execute().GetValue(L"C", minID);
+		CMD(base).CommandText(L"SELECT max([ID]) as C FROM ThicknessTable").Execute().GetValue(L"C", minID);
 
 		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMax, sizeof(MinMaxThickness::type_value));
 		Insert_Into<ThicknessTable>(tt, base).Execute();
 		int maxID = 0;
-		CMD(base).CommandText(L"SELECT max([ID]) as C FROM [StoredBase].[dbo].[ThicknessTable]").Execute().GetValue(L"C", maxID);
+		CMD(base).CommandText(L"SELECT max([ID]) as C FROM ThicknessTable").Execute().GetValue(L"C", maxID);
 
 		StoredThicknessTable st;
 		st.items.get<ID<ProtectiveThickeningTable>>().value = protectiveThickeningTableID;
@@ -349,19 +349,19 @@ namespace Stored
 			{
 				COleDateTime tme;
 				CMD(b).CommandText(
-					L"SELECT max([Date_Time]) as TME FROM [StoredBase].[dbo].[TubesTable]"\
+					L"SELECT max([Date_Time]) as TME FROM TubesTable"\
 					L"WHERE [Date_Time] "\
-					L"IN (SELECT TOP(5)[Date_Time] FROM [StoredBase].[dbo].[TubesTable] ORDER BY [Date_Time] ASC)"
+					L"IN (SELECT TOP(5)[Date_Time] FROM TubesTable ORDER BY [Date_Time] ASC)"
 					).GetValue(L"TME", tme);
 				Select<TubesTable>(b).op<Date_Time>(L"<", tme).ExecuteLoop<__list__>(*this);
 
 				CMD(b).CommandText(
-					L"DELETE FROM [StoredBase].[dbo].[TubesTable] WHERE Date_Time<?"
+					L"DELETE FROM [TubesTable] WHERE Date_Time<?"
 					).Param(tme).Execute();
 
 				RemoveNULLTables(b);
 
-				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
+				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM TubesTable").GetValue(L"C", count);
 				return;
 			}
 			if(count > 0)
@@ -370,7 +370,7 @@ namespace Stored
 			}
 			else
 			{
-				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM [StoredBase].[dbo].[TubesTable]").GetValue(L"C", count);
+				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM TubesTable").GetValue(L"C", count);
 			}
 		}
 		catch(...){}

@@ -35,9 +35,9 @@ namespace Protocols.Requests
                  + ", COUNT(*)OVER(PARTITION BY [IDProtocolsTable]) AS Count"
                  + ", ROW_NUMBER()OVER(PARTITION BY [IDProtocolsTable] ORDER BY [Date_Time])AS N"
                  + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
-               + " FROM [StoredBase].[dbo].[TubesTable]"
+               + " FROM TubesTable"
          //       + " WHERE [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
-           + ")AS tmp, [StoredBase].[dbo].[OperatorsTable] AS op, [StoredBase].[dbo].[ProtocolsTable] pr"
+           + ")AS tmp, OperatorsTable AS op, ProtocolsTable pr"
            + " WHERE N = 1 AND tmp.[IDOperator] = op.ID AND tmp.[IDProtocolsTable] = pr.ID"
            + " AND [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
            + " ORDER BY [Date_Time], pr.[NumberPacket] DESC"
@@ -91,7 +91,7 @@ namespace Protocols.Requests
 
             string queryString = "SELECT [Alloy],[DeliveryStatus],[NormativeDocument],[Gang]"
               + ",[ProductCodeNumber],[NumberPacket],[Standart]"
-              + " FROM [StoredBase].[dbo].[ProtocolsTable]"
+              + " FROM [ProtocolsTable]"
               + "WHERE [ID]= @id"
             ;
 
