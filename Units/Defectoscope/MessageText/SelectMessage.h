@@ -1,6 +1,8 @@
 #pragma once
 #include "DiffApp\App.h" 
 char *SelectMessage(int *, int &);
+//void SelectMessageBits(unsigned, int &);
+
 struct StatusText
 {
 	char *operator()(int id, int &color, bool &visible);	

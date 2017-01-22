@@ -267,15 +267,24 @@ namespace
 								if(t > d.bufferMax[i] && !d.cancelOperatorSensor[channel][i])
 								{										
 									d.bufferMax[i] = t;
-									if(status == Status)
-									{
-										d.statusMax[i] = Status;
-										d.bufferMax[i] = bit;
-									}
-									else
-									{
-										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMax[i]);
-									}
+								//	if(status == Status)
+								//	{
+								///	//	d.statusMax[i] = Status;
+								//		d.bufferMax[i] = bit;
+									//}
+								//	else
+								//	{
+									char st = 0;
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
+								//	}
+										int x[4];
+										x[0] = d.statusMax[i];
+										x[1] = st;
+										x[2] = status;
+										x[3] = -1;
+										int res;
+										SelectMessage(x, res);
+										d.statusMax[i] = res;
 								}
 
 								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
@@ -283,14 +292,23 @@ namespace
 									d.bufferMin[i] = t;	
 									if(status == Status)
 									{
-										d.statusMin[i] = Status;
+								//		d.statusMin[i] = Status;
 										d.bufferMin[i] = bit;
 									}
-									else
-									{
-										if(Status != d.statusMin[i])
-											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, d.statusMin[i]);
-									}
+						//			else
+								//	{
+									//	if(Status != d.statusMin[i])
+									char st = 0;
+											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
+									//}
+										int x[4];
+										x[0] = d.statusMin[i];
+										x[1] = st;
+										x[2] = status;
+										x[3] = -1;
+										int res;
+										SelectMessage(x, res);
+										d.statusMin[i] = res;
 								}
 							}
 						}
@@ -310,12 +328,6 @@ namespace
 			buf[0] = d.statusMin[i];		
 			buf[1] = d.statusMax[i];
 			buf[2] = b ? StatusId<Clr<Cancel<Projectionist>>>(): StatusId<Clr<Nominal>>();
-
-			//if(b)
-			//{
-			//	dprint("%d %d %d\n", buf[0], buf[1], buf[2]);
-			//}
-
 			int t = 0;
 			SelectMessage(buf, t);
 

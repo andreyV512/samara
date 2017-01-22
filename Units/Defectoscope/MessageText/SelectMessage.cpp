@@ -245,7 +245,7 @@ namespace SelectMesageN
 		TL::Factory<items_list> items;
 	};
 
-	unsigned __bits__[TL::Length<__selected_list__>::value];
+	unsigned __bits__[TL::Length<label_message_list>::value];
 
 	struct TSortedBit
 	{
@@ -279,6 +279,8 @@ namespace SelectMesageN
 		}
 	};
 	template<int i>struct __set_bits__<NullType, i>{};
+
+    __set_bits__<label_message_list> __init_set_bits__;
 	
 	struct Sort
 	{
@@ -288,18 +290,18 @@ namespace SelectMesageN
 		}
 		unsigned operator()(unsigned res)
 		{
-			unsigned mid = dimention_of(__bits__) / 2;
+			unsigned mid = dimention_of(__sorted_bit__) / 2;
 			unsigned start = 0;
-			unsigned stop = dimention_of(__bits__);
+			unsigned stop = dimention_of(__sorted_bit__);
 			while(stop != start)
 			{
-				if(__bits__[mid] > res)
+				if(__sorted_bit__[mid].__bits__ > res)
 				{
 					stop = mid;
 					mid = (stop + start) / 2;
 					printf("%d\n", mid);
 				}
-				else if(__bits__[mid] < res)
+				else if(__sorted_bit__[mid].__bits__ < res)
 				{
 					start = mid;
 					mid = (stop + start) / 2;
@@ -310,45 +312,61 @@ namespace SelectMesageN
 					break;
 				}
 			}
-			return mid;
+			return __sorted_bit__[mid].id;
 		}
 	};
 
 	Sort sort;
 
-	//int Result(int *x)
-	//{
-	//	
-	////	__result_data__ data;
-    //    unsigned res = 0;
-	//	while(-1 != *x)
-	//	{
-	//	//	data.id = *x;
-	//		//TL::find<label_message_list, __select__>()(data);
-	//		if(*x < dimention_of(__bits__)) res |= __bits__[*x];
-	//		x = &x[1];
-	//	}
-	//	TL::foreach<__selected_list__, __skip__X>()(res);
-	//	//__get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
-	//
-	//	return sort(res);
-	//}
-
 	int Result(int *x)
 	{
-		__result_data__ data;
+		
+	//	__result_data__ data;
+        unsigned res = 0;
+		unsigned *tmp = __bits__;
 		while(-1 != *x)
 		{
-			data.id = *x;
-			TL::find<label_message_list, __select__>()(data);
+		//	data.id = *x;
+			//TL::find<label_message_list, __select__>()(data);
+			if(*x < dimention_of(__bits__)) res |= __bits__[*x];
 			x = &x[1];
 		}
-		int res = 0;
-		TL::foreach<__selected_list__, __skip__>()(data.items);
-		__get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
-		return res;
+		TL::foreach<__selected_list__, __skip__X>()(res);
+		//__get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
+	
+		return sort(res);
 	}
 
+	//int Result(int *x)
+	//{
+	//	__result_data__ data;
+	//	while(-1 != *x)
+	//	{
+	//		data.id = *x;
+	//		
+	//		TL::find<label_message_list, __select__>()(data);
+	//		x = &x[1];
+	//	}
+	//	int res = 0;
+	//	TL::foreach<__selected_list__, __skip__>()(data.items);
+	//	__get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
+	//	return res;
+	//}
+//  template<class O, class P>struct __set_bits____
+//  {
+//	  void operator()(O &o, P &p)
+//	  {
+//		  if(p & (1 << TL::IndexOf<__result_data__::items_list, O>::value)) o.value = true;
+//	  }
+//  };
+
+ // void __SelectMessageBits(unsigned x, int &res)
+ // {
+//	  __result_data__ data;
+//	  TL::foreach<__result_data__::items_list, __set_bits____>()(data.items, x);
+//	  TL::foreach<__selected_list__, __skip__>()(data.items);
+//	  __get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
+ // }
 }
 
 char *SelectMessage(int *x, int &res)
@@ -357,7 +375,10 @@ char *SelectMessage(int *x, int &res)
 	return NULL;
 }
 
-
+//void SelectMessageBits(unsigned x, int &res)
+//{
+//	SelectMesageN::__SelectMessageBits(x, res);
+//}
 
 template<class T>struct __first__;
 	template<class A, class B, class C, class D, class E,class F>struct __first__<Clr<A, B, C, D, E,F>>
