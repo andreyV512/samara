@@ -29,6 +29,9 @@ bool ThicknessViewer::Draw(TMouseMove &l, VGraphics &g)
 			char min[128], max[128];
 			sprintf(min, "%.2f",viewerData.bufferMin[x]);
 			sprintf(max, "%.2f",viewerData.bufferMax[x]);
+
+			for(char *s = min; *s; ++s){if('.' == *s){s += 2;*s = '\0';break;}}
+			for(char *s = max; *s; ++s){if('.' == *s){s += 2;*s = '\0';break;}}
 			
 			wsprintf(buf, L"<ff>мин.толщина <ff0000>%S <ff>мах.толщина <ff0000>%S", 
 				min

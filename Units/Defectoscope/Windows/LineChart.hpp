@@ -67,6 +67,7 @@ template<class T, int N>struct Line: LineTresholdsViewer<typename TL::SelectT<Th
 			{
 				char val[128];
 				sprintf(val, "%.2f", valY);
+				for(char *ss = val; *ss; ++ss){if('.' == *ss){ss += 2;*ss = '\0';break;}}
 				wsprintf(label.buffer, L"<ff>Зона <ff0000>%d <ff>датчик <ff0000>%d <ff>смещение %d  величина %S   %S     "
 					, 1 + owner->lastZone, 1 + N, 1 + offsetX, val, s);
 			}
