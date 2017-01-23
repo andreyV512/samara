@@ -122,7 +122,7 @@ namespace LogMess
 		, AlarmNoDataCollection
 		, InfoDataSaved
 		, AlarmBufferOverflow
-
+		, InfoDataSaving
 		, max_row
 	};
 
@@ -213,6 +213,7 @@ namespace LogMess
 	MESS(InfoBase, void, "Сработал датчик \"База\"", blue, white);
 
 	MESS(InfoDataSaved, void, "Данные сохранены", green, white);
+	MESS(InfoDataSaving, void, "Данные сохраняются", red, blue);
 
 	MESS(SQ1BitIn             , bool, "SQ1BitIn            ", white, black)
 	MESS(SQ3BitIn             , bool, "SQ3BitIn            ", white, black)

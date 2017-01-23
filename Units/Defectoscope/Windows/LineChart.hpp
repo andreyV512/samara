@@ -353,7 +353,7 @@ namespace
 						break;
 					}
 				}
-				if(0 != d->hdr.G1Tof)
+		//		if(0 != d->hdr.G1Tof)
 				{
 					s.chart.items.get<ScanWindow::Gate1Border>().visible = true;
 					s.chart.items.get<ScanWindow::Gate1>().visible = true;
@@ -364,7 +364,7 @@ namespace
 					double g1B = s.chart.items.get<ScanWindow::Gate1Border>().value = 0.005 * (d->hdr.G1Tof + d->hdr.GIFTof);
 					dprint("g1B %f\n", g1B);
 
-					if(0 != d->hdr.G2Tof)
+		//			if(0 != d->hdr.G2Tof)
 					{
 						s.chart.items.get<ScanWindow::Gate2Border>().visible = true;
 						s.chart.items.get<ScanWindow::Gate2>().visible = true;

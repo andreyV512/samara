@@ -538,6 +538,7 @@ void Automat::Impl::Do()
 				//выставить сигнал ПЕРЕКЛАДКА
 				OUT_BITS(On<oToShiftThe>);
 				//Записать результат контроля в базу данных
+				Log::Mess<LogMess::InfoDataSaving>();
 				if(Stored::Do())
 				{
 					Log::Mess<LogMess::InfoDataSaved>();
