@@ -24,11 +24,11 @@ template<class>struct BorderAbove;
 template<class>struct BorderLower;
 template<class>struct BorderNominal;
 
-DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Long, double, App::count_zones, 20)
-DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::count_zones, 30)
+DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Long, double, App::count_zones, 106)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Long, double, App::count_zones, 45)
 
-DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Cross, double, App::count_zones, 40)
-DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::count_zones, 60)
+DEFINE_ARRAY_PARAM_WAPPER(BorderKlass2, Cross, double, App::count_zones, 106)
+DEFINE_ARRAY_PARAM_WAPPER(BorderDefect, Cross, double, App::count_zones, 70)
 
 DEFINE_ARRAY_PARAM_WAPPER(BorderAbove  , Thickness, double, App::count_zones, 3.0)
 DEFINE_ARRAY_PARAM_WAPPER(BorderLower  , Thickness, double, App::count_zones, 2.0)
@@ -55,7 +55,7 @@ struct ThresholdsTable
 //DEFINE_PARAM_WAPPER(AxesYMax, Thickness, double, 25)
 
 template<class T>struct BrakStrobe2;
-DEFINE_PARAM_WAPPER(BrakStrobe2, Thickness, double, 1)
+DEFINE_PARAM_WAPPER(BrakStrobe2, Thickness, double, 2)
 
 struct BrackStrobe2Table
 {
@@ -171,7 +171,7 @@ template<class T>struct Stat
 	static const unsigned value = TL::IndexOf<ColorTable::items_list, T>::value;
 };
 //-------------------------------------------------------------------------------------- 
-DEFINE_PARAM(ReferenceOffset1, unsigned, 4835)
+DEFINE_PARAM(ReferenceOffset1, unsigned, 4915)
 struct AdditionalSettingsTable
 {
 	typedef TL::MkTlst<	
@@ -328,14 +328,14 @@ struct Descriptor1730Table
  //--------------------------------------------------------------------------------------------------------
 ///\brief Смещение измерительных датчиков
 template<int N>struct Offset;
-DEFINE_PARAM_NUM(Offset, 0, int, 430)
-DEFINE_PARAM_NUM(Offset, 1, int, 380)
-DEFINE_PARAM_NUM(Offset, 2, int, 330)
-DEFINE_PARAM_NUM(Offset, 3, int, 280)
-DEFINE_PARAM_NUM(Offset, 4, int, 150)
-DEFINE_PARAM_NUM(Offset, 5, int, 100)
-DEFINE_PARAM_NUM(Offset, 6, int, 50)
-DEFINE_PARAM_NUM(Offset, 7, int, 0)
+DEFINE_PARAM_NUM(Offset, 0, int, 510)
+DEFINE_PARAM_NUM(Offset, 1, int, 460)
+DEFINE_PARAM_NUM(Offset, 2, int, 410)
+DEFINE_PARAM_NUM(Offset, 3, int, 360)
+DEFINE_PARAM_NUM(Offset, 4, int, 153)
+DEFINE_PARAM_NUM(Offset, 5, int, 103)
+DEFINE_PARAM_NUM(Offset, 6, int, 53)
+DEFINE_PARAM_NUM(Offset, 7, int, 3)
 
 struct OffsetsTable
 {
