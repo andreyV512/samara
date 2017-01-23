@@ -290,24 +290,23 @@ namespace SelectMesageN
 		}
 		unsigned operator()(unsigned res)
 		{
-			unsigned mid = dimention_of(__sorted_bit__) / 2;
+			unsigned mid = (dimention_of(__sorted_bit__) - 1) / 2;
 			unsigned start = 0;
-			unsigned stop = dimention_of(__sorted_bit__);
+			unsigned stop = dimention_of(__sorted_bit__) - 1;
+			TSortedBit *xxx = __sorted_bit__; 
 			while(stop != start)
 			{
 				if(__sorted_bit__[mid].__bits__ > res)
 				{
 					stop = mid;
 					mid = (stop + start) / 2;
-					printf("%d\n", mid);
 				}
 				else if(__sorted_bit__[mid].__bits__ < res)
 				{
 					start = mid;
 					mid = (stop + start) / 2;
-					printf("%d\n", mid);
 				}
-				else 
+				if(__sorted_bit__[mid].__bits__ == res || stop - start <= 1)
 				{
 					break;
 				}
