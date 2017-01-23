@@ -49,7 +49,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)App;$(ProjectDir)..\..\Common\Communication\ServiceProtocol;$(ProjectDir)..\..\Common\1730;$(ProjectDir)..\..\Common\templates;$(ProjectDir)..\..\Common\Base;$(ProjectDir)..\..\Common\USPC;$(ProjectDir)..\Defectoscope\Automat;$(ProjectDir)..\..\Common\ProtocolTCP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)../Defectoscope/;$(ProjectDir)..\..\Common\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
