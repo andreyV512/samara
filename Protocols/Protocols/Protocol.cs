@@ -127,13 +127,14 @@ namespace Protocols
             try
             {
                 var row = MainGridView.Rows[currentRow];
-
                 f.ShowReport(
                     (int)row.Cells[0].Value
                       , (long)row.Cells[1].Value
                     , (DateTime)row.Cells[2].Value
+                    , (string)row.Cells[3].Value
                     , (int)row.Cells[4].Value
                     , (string)row.Cells[5].Value
+                    
                     );
             }
             catch

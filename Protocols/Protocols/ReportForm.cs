@@ -23,10 +23,12 @@ namespace Protocols
             HiddenExportMenu("WORD");
         }
         
-        public void ShowReport(int id, long numberProtocol, DateTime tdeTme, int count, string Operator)
+        public void ShowReport(int id, long numberProtocol, DateTime tdeTme, string num, int count, string Operator)
         {
             reportViewer1.LocalReport.DataSources.Clear();
             reportViewer1.LocalReport.ReportPath = "ProtocolReport.rdlc";
+            reportViewer1.LocalReport.DisplayName = num;
+            
 
             var header = UltrasonicControlProducts.HeaderProtocol(id, numberProtocol, tdeTme, count, Operator);
 
@@ -37,13 +39,6 @@ namespace Protocols
 
             Microsoft.Reporting.WinForms.ReportDataSource dataset2 = new Microsoft.Reporting.WinForms.ReportDataSource("DataSet2", body); // set the datasource
             reportViewer1.LocalReport.DataSources.Add(dataset2);
-
-            //PageSettings ps = new PageSettings();
-            //ps.Margins.Left = 10;
-            //ps.Margins.Right = 0;
-            //ps.Margins.Top = 0;
-            //ps.Margins.Bottom = 0;
-            //reportViewer1.SetPageSettings(ps); 
 
             reportViewer1.LocalReport.Refresh();
             reportViewer1.RefreshReport();

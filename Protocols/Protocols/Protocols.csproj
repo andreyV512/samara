@@ -96,7 +96,9 @@
     <EmbeddedResource Include="Protocol.resx">
       <DependentUpon>Protocol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProtocolReport.rdlc" />
+    <EmbeddedResource Include="ProtocolReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
