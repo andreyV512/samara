@@ -140,9 +140,25 @@ namespace Protocols
             { }
         }
 
-        private void ListTubes(long protocol, string packet)
+        private void ListTubes(long protocol
+            , string packet
+            , string Alloy
+            , string DeliveryStatus
+            , string NormativeDocument
+            , string Gang
+            , string ProductCodeNumber           
+            , string Standart
+            )
         {
-            IEnumerable<TubesView> l = RequestListTubes.Get(protocol, packet);
+            IEnumerable<TubesView> l = RequestListTubes.Get(//protocol
+                 packet
+                , Alloy
+                , DeliveryStatus
+                , NormativeDocument
+                , Gang
+                , ProductCodeNumber           
+                , Standart
+                );
             DataTable table = new DataTable();
 
             table.Columns.Add().DataType = typeof(long);
@@ -178,7 +194,28 @@ namespace Protocols
             {
                 doProc = SelectTube;
                 var row = MainGridView.Rows[currentRow];
-                ListTubes((long)row.Cells[1].Value, (string)row.Cells[3].Value);
+                /*
+                 *  , string packet
+            , string Alloy
+            , string DeliveryStatus
+            , string NormativeDocument
+            , string Gang
+            , string ProductCodeNumber           
+            , string Standart
+                 * */
+                ListTubes((long)row.Cells[1].Value
+                    , (string)row.Cells[3].Value
+
+                    , (string)row.Cells[6].Value
+                    , (string)row.Cells[7].Value
+
+                    , (string)row.Cells[8].Value
+
+                    , (string)row.Cells[9].Value
+
+                    , (string)row.Cells[10].Value
+                    , (string)row.Cells[11].Value
+                    );
             }
             catch{}
         }
