@@ -2048,8 +2048,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>28.7401cm</Height>
-    <Style />
+    <Height>23.10447cm</Height>
+    <Style>
+      <Border />
+    </Style>
   </Body>
   <Width>22.17654cm</Width>
   <Page>
@@ -2064,7 +2066,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>1.04098cm</Height>
+      <Height>1.30556cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -2104,7 +2106,7 @@
         </Border>
       </Style>
     </PageFooter>
-    <PageHeight>279cm</PageHeight>
+    <PageHeight>297cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>

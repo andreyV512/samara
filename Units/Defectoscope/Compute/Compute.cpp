@@ -55,15 +55,15 @@ namespace
 			MedianFiltre &ff = f[i];
 			int index = ff.Add(data, status);
 			status = ff.status[index];
-			if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
-			{
-				int k = 0;
-				for(int i = 0; i < ff.width; ++i)
-				{
-					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[i])	++k;
-				}
-				if(k <= ff.medianIndex) status = StatusId<Clr<Undefined>>();
-			}
+			//if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
+			//{
+			//	int k = 0;
+			//	for(int i = 0; i < ff.width; ++i)
+			//	{
+			//		if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[i])	++k;
+			//	}
+			//	if(k <= ff.medianIndex) status = StatusId<Clr<Undefined>>();
+			//}
 			return ff.buf[index];
 		}
 		inline double AddX(int i, double data)

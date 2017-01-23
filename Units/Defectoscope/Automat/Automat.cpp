@@ -545,6 +545,7 @@ void Automat::Impl::Do()
 					Sleep(1000);
 				}
 				//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				dprint("cdates saved\n");
 				AND_BITS(Ex<ExceptionStopProc>, Off<iCycle>)(60 * 60 * 1000);
 				OUT_BITS(Off<oToShiftThe>, Off<oResult1>, Off<oResult2>);
 			}
