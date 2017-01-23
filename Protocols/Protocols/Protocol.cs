@@ -27,9 +27,9 @@ namespace Protocols
             {
                 var row = MainGridView.Rows[currentRow];
                 string param = ((DateTime)row.Cells[3].Value).ToString("yyMMddHHmmss");
-                param += " " + row.Cells[0].Value.ToString();
-                param += " " + row.Cells[1].Value.ToString();
-                param += " " + row.Cells[2].Value.ToString();
+                param += " " + row.Cells[0].Value.ToString().Trim(' ').Replace(' ', '_');
+                param += " " + row.Cells[1].Value.ToString().Trim(' ').Replace(' ', '_');
+                param += " " + row.Cells[2].Value.ToString().Trim(' ').Replace(' ', '_');
                 Process.Start(".\\Viewer.exe", param);
             }
             catch { }
@@ -194,15 +194,6 @@ namespace Protocols
             {
                 doProc = SelectTube;
                 var row = MainGridView.Rows[currentRow];
-                /*
-                 *  , string packet
-            , string Alloy
-            , string DeliveryStatus
-            , string NormativeDocument
-            , string Gang
-            , string ProductCodeNumber           
-            , string Standart
-                 * */
                 ListTubes((long)row.Cells[1].Value
                     , (string)row.Cells[3].Value
 
