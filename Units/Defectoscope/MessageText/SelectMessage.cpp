@@ -402,6 +402,10 @@ template<class T>struct ResultOk<BorderDefect<T>>
 {
 	bool operator()(){return false;}
 };
+template<>struct ResultOk<BrakStrobe2<Thickness>>
+{
+	bool operator()(){return false;}
+};
 
 	bool __res_ok__[TL::Length<label_message_list>::value];
 

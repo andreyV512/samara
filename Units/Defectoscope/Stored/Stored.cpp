@@ -510,17 +510,17 @@ namespace Stored
 
 	DWORD WINAPI  __CleanStoredBase__(LPVOID)
 	{
-		StoredBase parameters;
-		CExpressBase base(
-			parameters.name()
-			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
-			, parameters.tables
-			);
-
-		if(base.IsOpen())
-		{
-			Stored::RemoveNULLTables(base);
-		}
+	//	StoredBase parameters;
+	//	CExpressBase base(
+	//		parameters.name()
+	//		, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
+	//		, parameters.tables
+	//		);
+	//
+	//	if(base.IsOpen())
+	//	{
+	//		Stored::RemoveNULLTables(base);
+	//	}
 		return 0;
 	}
 
