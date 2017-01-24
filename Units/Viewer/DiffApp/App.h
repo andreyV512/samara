@@ -44,6 +44,7 @@ public:
 	static HWND MainWindowHWND();
 	static void InitCaretka();
 	static const wchar_t *TitleApp(){return L"Просмотр данных";}
+	static const wchar_t *Salt(){return L"View";}
 };
 
 extern App app;

@@ -56,8 +56,20 @@ namespace MainWindowMenu
 	struct ThicknessThresholdWindow__: Common::OpenWindow<ThicknessThresholdWindow>{};
 
 	struct BrackStrobe2__: BrackStrobe2Dlg{};//{static void Do(HWND h){zprint("");}};
+	struct ProtectiveThickening__: ProtectiveThickeningDlg{};
 
 	struct MedianFiltre           : MedianFiltreDlg{};//{static void Do(HWND h){zprint("");}};
+
+	template<>struct SubMenu<Thickness>
+	{
+		typedef TL::MkTlst<
+			MenuItem<ThicknessThresholdWindow__>
+			, Separator<0>
+			, MenuItem<BrackStrobe2__>
+			, Separator<1>
+			, MenuItem<ProtectiveThickening__>
+		>::Result list;
+	};
 
 	template<>struct SubMenu<Tresholds>
 	{
@@ -78,6 +90,7 @@ namespace MainWindowMenu
 	MENU_ITEM(L"Медианный фильтр", MedianFiltre)
 	MENU_ITEM(L"Расслоение", BrackStrobe2__)
 	MENU_TEXT(L"Толщина", SubMenu<Thickness>)
+	MENU_ITEM(L"Границы тела трубы", ProtectiveThickening__)
 
 	
 

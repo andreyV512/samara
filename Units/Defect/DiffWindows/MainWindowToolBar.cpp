@@ -18,6 +18,7 @@
 #include "window_tool/ToolBarButton.h"
 #include "App/Config.h"
 #include "Dialogs/NumberTubeDlg.h"
+#include "Windows\ScanWindow.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -56,25 +57,44 @@ namespace
 #undef BUTTON_KEY
 	namespace closed_window
 	{
-		const wchar_t *const name[] = {
-			L"CrossWindow"
-			, L"LongWindow"
-			, L"ThicknessWindow"
-			, L"ScanWindow"
+		//const wchar_t *const name[] = {
+		//	  L"CrossWindow"
+		//	, L"LongWindow"
+		//	, L"ThicknessWindow"
+		//	, L"ScanWindow"
+		//};
+		typedef TL::MkTlst<
+			WindowClass<CrossWindow		>
+			, WindowClass<LongWindow		>
+			, WindowClass<ThicknessWindow	>
+			, WindowClass<ScanWindow		>
+		>::Result window_list;
+		template<class O, class P>struct __close_window__
+		{
+			void operator()()
+			{
+				HWND hh = FindWindow(O()(), NULL);
+		    	if(NULL != hh) DestroyWindow(hh);
+			}
 		};
+
+		void close_window()
+		{
+			TL::foreach<window_list, __close_window__>()();
+		}
 	}
 //----------------------------------------------------------------------------------
 	static bool closed_packet_dialog = true;
 	static bool run_once_per_sycle = false;
 	void Key<IDB_CycleBtn>::Click(HWND h)
 	{
-		HWND hh = NULL;
-		for(int i = 0; i < dimention_of(closed_window::name); ++i)
-		{
-			hh = FindWindow(closed_window::name[i], NULL);
-			if(NULL != hh) DestroyWindow(hh);
-		}
-
+		//HWND hh = NULL;
+		//for(int i = 0; i < dimention_of(closed_window::name); ++i)
+		//{
+		//	hh = FindWindow(closed_window::name[i], NULL);
+		//	if(NULL != hh) DestroyWindow(hh);
+		//}
+		closed_window::close_window();
 
 		if(closed_packet_dialog)
 		{

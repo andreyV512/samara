@@ -4,6 +4,7 @@
 #include "window_tool/message.h"
 #include "resource.h"
 #include "templates/WindowsEventTemplate.hpp"
+#include "DiffApp\App.h"
 //---------------------------------------------------------------------------------
 ATOM MyRegisterClass(WNDPROC WndProc
 	, const wchar_t *windowClassName
@@ -35,6 +36,7 @@ template<class T>struct WindowClass
 	WindowClass()
 	{
 		mbstowcs(buf, &(typeid(T).name())[6], dimention_of(buf));
+		wcscat(buf, App::Salt());
 	}
 	wchar_t *operator()()const
 	{
