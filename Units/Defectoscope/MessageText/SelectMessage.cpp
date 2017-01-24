@@ -82,10 +82,19 @@ namespace SelectMesageN
 		void operator()(P &p)
 		{
 			if(p & (1 << TL::IndexOf<__selected_list__, Nominal>::value))
-		//	if(p.get<__selectItem__<Nominal>>().value)
 			{
-			//	p.get<__selectItem__<Undefined>>().value = false;
 				p &= ~(1 << TL::IndexOf<__selected_list__, Undefined>::value);
+			}
+		}
+	};
+
+	template<class P>struct __skip__X<DeathZone, P>
+	{
+		void operator()(P &p)
+		{
+			if(p & (1 << TL::IndexOf<__selected_list__, DeathZone>::value))
+			{
+				p = 1 << TL::IndexOf<__selected_list__, DeathZone>::value;
 			}
 		}
 	};
@@ -306,8 +315,16 @@ namespace SelectMesageN
 					start = mid;
 					mid = (stop + start) / 2;
 				}
-				if(__sorted_bit__[mid].__bits__ == res || stop - start <= 1)
+				if(__sorted_bit__[mid].__bits__ == res)
 				{
+					break;
+				}
+				if(stop - start <= 1)
+				{
+					bool b = false;
+					if(b =(__sorted_bit__[stop].__bits__ == res)) mid = stop;
+					else if(b = (__sorted_bit__[start].__bits__ == res)) mid = start;
+					if(!b)dprint("sort %d\n", res);
 					break;
 				}
 			}
@@ -320,52 +337,17 @@ namespace SelectMesageN
 	int Result(int *x)
 	{
 		
-	//	__result_data__ data;
         unsigned res = 0;
 		unsigned *tmp = __bits__;
 		while(-1 != *x)
 		{
-		//	data.id = *x;
-			//TL::find<label_message_list, __select__>()(data);
 			if(*x < dimention_of(__bits__)) res |= __bits__[*x];
 			x = &x[1];
 		}
 		TL::foreach<__selected_list__, __skip__X>()(res);
-		//__get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
 	
 		return sort(res);
 	}
-
-	//int Result(int *x)
-	//{
-	//	__result_data__ data;
-	//	while(-1 != *x)
-	//	{
-	//		data.id = *x;
-	//		
-	//		TL::find<label_message_list, __select__>()(data);
-	//		x = &x[1];
-	//	}
-	//	int res = 0;
-	//	TL::foreach<__selected_list__, __skip__>()(data.items);
-	//	__get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
-	//	return res;
-	//}
-//  template<class O, class P>struct __set_bits____
-//  {
-//	  void operator()(O &o, P &p)
-//	  {
-//		  if(p & (1 << TL::IndexOf<__result_data__::items_list, O>::value)) o.value = true;
-//	  }
-//  };
-
- // void __SelectMessageBits(unsigned x, int &res)
- // {
-//	  __result_data__ data;
-//	  TL::foreach<__result_data__::items_list, __set_bits____>()(data.items, x);
-//	  TL::foreach<__selected_list__, __skip__>()(data.items);
-//	  __get_id__<__selected_list__>()(data.items, __data__<label_message_list>(res));
- // }
 }
 
 char *SelectMessage(int *x, int &res)
@@ -374,10 +356,12 @@ char *SelectMessage(int *x, int &res)
 	return NULL;
 }
 
-//void SelectMessageBits(unsigned x, int &res)
-//{
-//	SelectMesageN::__SelectMessageBits(x, res);
-//}
+bool MinAndLamination(char status)
+{
+	static const unsigned mask = (1 << TL::IndexOf<SelectMesageN::__selected_list__, BorderLower<Thickness>>::value) 
+		| (1 << TL::IndexOf<SelectMesageN::__selected_list__, BrakStrobe2<Thickness>>::value);
+	return mask == (mask & SelectMesageN::__bits__[status]);
+}
 
 template<class T>struct __first__;
 	template<class A, class B, class C, class D, class E,class F>struct __first__<Clr<A, B, C, D, E,F>>
@@ -455,10 +439,6 @@ template<class T, int i = 0>struct __set_message__;
 
 char *StatusText::operator()(int id, int &color, bool &visible)
 {
-	//__data_text__ data = {id, NULL};
-	//TL::find<label_message_list, __select__>()(&data);
-//	color = data.color;
-	//visible = data.visibleVal;
 	color = *__color__[id];
 
 	 visible = !(TL::IndexOf<label_message_list, Clr<Undefined>>::value == id 

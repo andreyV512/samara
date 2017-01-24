@@ -57,18 +57,25 @@ bool ThicknessViewer::GetColorBar(int zone, double &data_, unsigned &color, doub
 {
 	data_1 = viewerData.bufferMin[zone];
 	data_ =  viewerData.bufferMax[zone];
-	ColorBar()(
-		data_1
-		, color1
-		, viewerData.commonStatus[zone]
+	if(MinAndLamination(viewerData.commonStatus[zone]))
+	{
+		color1 = Singleton<ColorTable>::Instance().items.get<Clr<BorderLower<Thickness> >>().value;
+		color = Singleton<ColorTable>::Instance().items.get<Clr<BrakStrobe2<Thickness> >>().value;
+	}
+	else
+	{
+		ColorBar()(
+			data_1
+			, color1
+			, viewerData.commonStatus[zone]
 		, Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone]
-	);
-	color = color1;
-	unsigned char *x = (unsigned char *) &color;
-	x[0] = unsigned char(2.5 * x[0] / 4);
-	x[1] = unsigned char(2.5 * x[1] / 4);
-	x[2] = unsigned char(2.5 * x[2] / 4);
-
+		);
+		color = color1;
+		unsigned char *x = (unsigned char *) &color;
+		x[0] = unsigned char(2.5 * x[0] / 4);
+		x[1] = unsigned char(2.5 * x[1] / 4);
+		x[2] = unsigned char(2.5 * x[2] / 4);
+	}
 	return zone < viewerData.currentOffsetZones;	  
 }
 //-----------------------------------------------------------------------------

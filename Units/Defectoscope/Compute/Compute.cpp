@@ -289,26 +289,25 @@ namespace
 
 								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
 								{
+									char st = StatusId<Clr<Undefined>>();
 									d.bufferMin[i] = t;	
 									if(status == Status)
 									{
-								//		d.statusMin[i] = Status;
 										d.bufferMin[i] = bit;
 									}
-						//			else
-								//	{
-									//	if(Status != d.statusMin[i])
-									char st = 0;
-											StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-									//}
-										int x[4];
-										x[0] = d.statusMin[i];
-										x[1] = st;
-										x[2] = status;
-										x[3] = -1;
-										int res;
-										SelectMessage(x, res);
-										d.statusMin[i] = res;
+									else
+									{
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
+									}
+									int x[4];
+									x[0] = d.statusMin[i];
+									x[1] = st;
+									x[2] = status;
+									x[3] = -1;
+									int res;
+									SelectMessage(x, res);
+									d.statusMin[i] = res;
+									if( StatusId<Clr<BorderLower<Thickness>>>() == res)	d.bufferMin[i] = t;
 								}
 							}
 						}
@@ -332,6 +331,11 @@ namespace
 			SelectMessage(buf, t);
 
 			d.commonStatus[i] = t;
+
+			if(-1 == d.bufferMax[i])
+			{
+				 d.bufferMin[i] =  d.bufferMax[i] = maxThickness[i];
+			}
 		}
 	}
 

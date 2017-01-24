@@ -1,7 +1,9 @@
 #pragma once
 #include "DiffApp\App.h" 
 char *SelectMessage(int *, int &);
-//void SelectMessageBits(unsigned, int &);
+
+bool MinAndLamination(char);
+
 
 struct StatusText
 {
