@@ -61,7 +61,7 @@ namespace Protocols.Requests
                         if (1000 == zone.MinVal) zone.MinVal = 0;
                         if (-1 == zone.MaxVal) zone.MaxVal = 0;
 
-                        zone.NumberZone = i;
+                        zone.NumberZone = 1 + i;
                         zones.Add(zone);
                     }
 
