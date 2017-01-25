@@ -267,24 +267,17 @@ namespace
 								if(t > d.bufferMax[i] && !d.cancelOperatorSensor[channel][i])
 								{										
 									d.bufferMax[i] = t;
-								//	if(status == Status)
-								//	{
-								///	//	d.statusMax[i] = Status;
-								//		d.bufferMax[i] = bit;
-									//}
-								//	else
-								//	{
+									if(status == Status && t >= (maxThickness[i] - minThickness[i])) status =  StatusId<Clr<Nominal>>();
 									char st = 0;
-										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-								//	}
-										int x[4];
-										x[0] = d.statusMax[i];
-										x[1] = st;
-										x[2] = status;
-										x[3] = -1;
-										int res;
-										SelectMessage(x, res);
-										d.statusMax[i] = res;
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
+									int x[4];
+									x[0] = d.statusMax[i];
+									x[1] = st;
+									x[2] = status;
+									x[3] = -1;
+									int res;
+									SelectMessage(x, res);
+									d.statusMax[i] = res;
 								}
 
 								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
