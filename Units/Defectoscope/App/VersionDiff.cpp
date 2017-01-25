@@ -155,6 +155,7 @@ namespace Version
 					TL::foreach<ParametersBase::type_list, __load__>()(f);
 					TL::foreach<unit_list, __unit_load__>()(__unit_data__(f));
 					TL::foreach<unit_list, __cancel_operator_load__>()(f);
+					App::InitCaretka();
 				}
 				return true;
 			case 5:
