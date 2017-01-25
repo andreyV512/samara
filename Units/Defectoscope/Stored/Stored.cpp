@@ -359,7 +359,7 @@ namespace Stored
 					L"DELETE FROM [TubesTable] WHERE Date_Time<?"
 					).Param(tme).Execute();
 
-				RemoveNULLTables(b);
+				//RemoveNULLTables(b);
 
 				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM TubesTable").GetValue(L"C", count);
 				return;
