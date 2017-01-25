@@ -76,7 +76,10 @@ namespace
 	{
 		zprint("\n");
 		PacketWindowDlg(h);
-		if(!NumberTubeDlg::Do())Stored::Do();
+		if(NumberTubeDlg::Do())
+		{
+			Stored::Do();
+		}
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_left>::Click(HWND h)
@@ -87,7 +90,8 @@ namespace
 	void Key<IDB_arrow_right>::Click(HWND h)
 	{
 		zprint("\n");	
-		app.mainWindow.ClearCharts();
+		//app.mainWindow.ClearCharts();
+		Stored::CleanStoredBaseTest();
 	}
 //----------------------------------------------------------------------------
 	void Key<IDB_Reset>::Click(HWND h)

@@ -153,6 +153,7 @@ void MainWindow::operator()(TUser &l)
 //--------------------------------------------------------------------------------
 void MainWindow::operator()(TCopyData &l)
 {
+	ClearCharts();
 	App::WindowUp(l.hwnd, (wchar_t *)l.copyDataStruct->lpData);
 }
 //--------------------------------------------------------------------------------

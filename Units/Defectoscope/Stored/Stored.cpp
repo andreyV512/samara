@@ -298,7 +298,7 @@ namespace Stored
 			Path(c, tme);
 			DataToFile(path);
 
-			deleteLast(base, path, c);
+			if(base.IsOpen())deleteLast(base, path, c);
 
 			Zip::ZipAll();
 
@@ -510,22 +510,29 @@ namespace Stored
 
 	DWORD WINAPI  __CleanStoredBase__(LPVOID)
 	{
-	//	StoredBase parameters;
-	//	CExpressBase base(
-	//		parameters.name()
-	//		, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
-	//		, parameters.tables
-	//		);
-	//
-	//	if(base.IsOpen())
-	//	{
-	//		Stored::RemoveNULLTables(base);
-	//	}
+		dprint("clean nul tables start\n");
+		StoredBase parameters;
+		CExpressBase base(
+			parameters.name()
+			, CreateDataBase<StoredBase::type_list, NullType, MSsql>()
+			, parameters.tables
+			);
+	
+		if(base.IsOpen())
+		{
+			Stored::RemoveNULLTables(base);
+		}
+		dprint("clean nul tables stop\n");
 		return 0;
 	}
 
 	void CleanStoredBase()
 	{
 		//QueueUserWorkItem(__CleanStoredBase__, NULL, WT_EXECUTEDEFAULT);
+	}
+
+	void CleanStoredBaseTest()
+	{
+		QueueUserWorkItem(__CleanStoredBase__, NULL, WT_EXECUTEDEFAULT);
 	}
 }

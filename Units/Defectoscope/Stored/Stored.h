@@ -9,4 +9,6 @@ namespace Stored
 	bool DataFromFile(wchar_t *path);
 	void RemoveNULLTables(CBase &);
 	void CleanStoredBase();
+
+	void CleanStoredBaseTest();
 }
