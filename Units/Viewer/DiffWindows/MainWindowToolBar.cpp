@@ -14,6 +14,7 @@
 #include "Stored\Stored.h"
 #include "window_tool\ToolBarButton.h"
 #include "App/Config.h"
+#include "Dialogs\NumberTubeDlg.h"
 using namespace Gdiplus;
 namespace 
 {
@@ -74,6 +75,8 @@ namespace
 	void Key<IDB_arrow_up>::Click(HWND h)
 	{
 		zprint("\n");
+		PacketWindowDlg(h);
+		if(!NumberTubeDlg::Do())Stored::Do();
 	}
 //------------------------------------------------------------------------------
 	void Key<IDB_arrow_left>::Click(HWND h)
