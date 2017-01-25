@@ -9,6 +9,7 @@ using Protocols.Models;
 using System.Xml.Serialization;
 using System.IO;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Protocols.Requests
 {
@@ -39,6 +40,9 @@ namespace Protocols.Requests
                 PacketXML packet = new PacketXML();
                 packet.TubeParty = tubeParty;
                 packet.Tubes = new List<Tube>();
+                double x = 0;
+                Regex regex = new Regex(@"(.+\,.)");
+                Match match;
                 while (reader.Read())
                 {
                     Tube tube = new Tube();
@@ -54,10 +58,20 @@ namespace Protocols.Requests
                     {
                         Zone zone = new Zone();
 
-                        zone.MinVal = BitConverter.ToDouble(tmpBuf0, i * sizeof(double));
-                        zone.MinVal = Math.Round(zone.MinVal, 1);
-                        zone.MaxVal = BitConverter.ToDouble(tmpBuf1, i * sizeof(double));
-                        zone.MaxVal = Math.Round(zone.MaxVal, 1);
+                        x = BitConverter.ToDouble(tmpBuf0, i * sizeof(double));
+                        match = regex.Match(x.ToString());
+                        if (match.Success)
+                        {
+                            x = Convert.ToDouble(match.Groups[1].Value);
+                        }
+                        zone.MinVal = x;
+                        x = BitConverter.ToDouble(tmpBuf1, i * sizeof(double));
+                        match = regex.Match(x.ToString());
+                        if (match.Success)
+                        {
+                            x = Convert.ToDouble(match.Groups[1].Value);
+                        }
+                        zone.MaxVal = x;
                         if (1000 == zone.MinVal) zone.MinVal = 0;
                         if (-1 == zone.MaxVal) zone.MaxVal = 0;
 
