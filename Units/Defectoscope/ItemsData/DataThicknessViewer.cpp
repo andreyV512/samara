@@ -76,6 +76,8 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						, status[cnt]);
 				}
 				if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
+				if( StatusId<Clr<Undefined>>() == status[cnt]) 
+				  data[cnt] = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone];
 				if(++cnt >= dimention_of(data)) break;
 			}
 		}
@@ -151,16 +153,20 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						status[cnt] = StatusId<Clr<Undefined>>();
 					}
 				}
-
-				if(Status != status[cnt] && cnt >= 0)
+				if(cnt >= 0)
 				{
-					StatusZoneThickness(offs, t, zone
-						, aboveBorder  
-						, lowerBorder  
-						, nominalBorder
-						, status[cnt]);
+					if(Status != status[cnt])
+					{
+						StatusZoneThickness(offs, t, zone
+							, aboveBorder  
+							, lowerBorder  
+							, nominalBorder
+							, status[cnt]);
+					}
+					if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
+					if( StatusId<Clr<Undefined>>() == status[cnt]) 
+						data[cnt] = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone];
 				}
-				if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
 				if(++cnt >= (int)dimention_of(data)) break;
 			}
 		}
