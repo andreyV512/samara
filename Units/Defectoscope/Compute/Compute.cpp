@@ -55,15 +55,15 @@ namespace
 			MedianFiltre &ff = f[i];
 			int index = ff.Add(data, status);
 			status = ff.status[index];
-			//if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
-			//{
-			//	int k = 0;
-			//	for(int i = 0; i < ff.width; ++i)
-			//	{
-			//		if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[i])	++k;
-			//	}
-			//	if(k <= ff.medianIndex) status = StatusId<Clr<Undefined>>();
-			//}
+			if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
+			{
+				int k = 0;
+				for(int i = 0; i < ff.width; ++i)
+				{
+					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[i])	++k;
+				}
+				if(k <= ff.medianIndex) status = StatusId<Clr<Undefined>>();
+			}
 			return ff.buf[index];
 		}
 		inline double AddX(int i, double data)
@@ -279,7 +279,7 @@ namespace
 									SelectMessage(x, res);
 									d.statusMax[i] = res;
 								}
-
+								else
 								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
 								{
 									char st = StatusId<Clr<Undefined>>();
@@ -301,6 +301,17 @@ namespace
 									SelectMessage(x, res);
 									d.statusMin[i] = res;
 									if( StatusId<Clr<BorderLower<Thickness>>>() == res)	d.bufferMin[i] = t;
+								}
+								else
+								{
+									int x[] = {
+										d.statusMin[i]
+										, status
+										, -1
+									};
+									int res;
+									SelectMessage(x, res);
+									d.statusMin[i] = res;
 								}
 							}
 						}
