@@ -444,7 +444,7 @@ namespace Stored
 			L" ON t.IDProtocolsTable = p.ID"\
 			L" WHERE p.ID IS NULL"
 			).ExecuteLoop<TL::MkTlst<Date_Time>::Result, __x_list__>(data);
-
+		
         COleDateTime tme;
 		CMD(b).CommandText(
 			L"SELECT MIN(t.Date_Time) AS Date_Time FROM TubesTable t"
@@ -462,7 +462,7 @@ namespace Stored
 			L" DELETE s"\
 			L" FROM StoredThicknessTable AS s"\
 			L" LEFT JOIN TubesTable AS t"\
-			L" ON t.IDProtocolsTable = s.TubesTableID"\
+			L" ON t.ID = s.TubesTableID"\
 			L" WHERE t.ID IS NULL"
 			).Execute();
 		CMD(b).CommandText(
@@ -504,6 +504,14 @@ namespace Stored
 			L" FROM ProtocolsTable AS p"\
 			L" LEFT JOIN TubesTable AS t"\
 			L" ON p.ID = t.IDProtocolsTable"\
+			L" WHERE t.ID IS NULL"
+			).Execute();
+
+		CMD(b).CommandText(
+			L"DELETE p"\
+			L" FROM ProtectiveThickeningTable AS p"\
+			L" LEFT JOIN StoredThicknessTable AS t"\
+			L" ON p.ID = t.ProtectiveThickeningTableID"\
 			L" WHERE t.ID IS NULL"
 			).Execute();
 	}
