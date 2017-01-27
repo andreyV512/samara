@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using Protocols.Models;
+using System.Text.RegularExpressions;
 
 namespace Protocols.Requests
 {
@@ -18,25 +19,25 @@ namespace Protocols.Requests
             string queryString =
            "SELECT "
            + "[IDProtocolsTable]"
-      //    + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
-      + " , X "
+           //+ " , X "
+           + ", pr.ProtocolNumber"
            + ", [Date_Time], Count, op.[Operator]"
+
+            + ", pr.[Alloy            ]"
+            + ", pr.[DeliveryStatus   ]"
+            + ", pr.[NormativeDocument]"
+            + ", pr.[Gang             ]"
+            + ", pr.[ProductCodeNumber]"
+            + ", pr.[NumberPacket     ]"
+            + ", pr.[Standart         ]"
             
-            +", pr.[Alloy            ]"
-            +", pr.[DeliveryStatus   ]"
-            +", pr.[NormativeDocument]"
-            +", pr.[Gang             ]"
-            +", pr.[ProductCodeNumber]"
-            +", pr.[NumberPacket     ]"
-            +", pr.[Standart         ]"
-          
+
                + " FROM("
                + " SELECT [IDProtocolsTable], [Date_Time],[IDOperator]"
                  + ", COUNT(*)OVER(PARTITION BY [IDProtocolsTable]) AS Count"
                  + ", ROW_NUMBER()OVER(PARTITION BY [IDProtocolsTable] ORDER BY [Date_Time])AS N"
-                 + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
+               //  + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
                + " FROM TubesTable"
-         //       + " WHERE [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
            + ")AS tmp, OperatorsTable AS op, ProtocolsTable pr"
            + " WHERE N = 1 AND tmp.[IDOperator] = op.ID AND tmp.[IDProtocolsTable] = pr.ID"
            + " AND [Date_Time] >= @_from_ AND [Date_Time] <= @_to_"
@@ -55,13 +56,14 @@ namespace Protocols.Requests
                 command.Connection.Open();
 
                 SqlDataReader reader = command.ExecuteReader();
+                
                 try
                 {
-                    while (reader.Read())
+                    if (reader.Read())
                     {
                         IDTimeCount t = new IDTimeCount();
                         t.ID = (int)reader[0];
-                        t.NumberProtocol = (long)reader[1];
+                        t.NumberProtocol = (int)((reader[1] is DBNull) ? 0 : reader[1]);
                         t.TteTme = (DateTime)reader[2];
                         t.Count = (int)reader[3];
                         t.Operator = (string)reader[4];
@@ -73,10 +75,42 @@ namespace Protocols.Requests
                         t.ProductCodeNumber = (string)reader[9];
                         t.NumberPacket      = (string)reader[10];
                         t.Standart          = (string)reader[11];
+                        command.Connection.Close();
+                        if (0 == t.NumberProtocol)
+                        {
+                            queryString =
+                                "SELECT max(ProtocolNumber )AS x" 
+                                + " FROM ProtocolsTable AS p"
+                                + " INNER JOIN TubesTable AS t"
+                                + " ON p.ID = t.IDProtocolsTable"
+                                + " WHERE YEAR(t.Date_Time)= @year"
+                                ;
+                            command = new SqlCommand(queryString, connection);
+                            command.Parameters.Add("@year", SqlDbType.Int);
+                            command.Parameters["@year"].Value = t.TteTme.Year;
+                            command.Connection.Open();
+                            reader = command.ExecuteReader();
+                           
+                            reader.Read();
+                            t.NumberProtocol = 1 + (int)((reader[0] is DBNull) ? 0 : reader[0]);
+                            command.Connection.Close();
+
+                            queryString = "UPDATE ProtocolsTable SET ProtocolNumber=" + t.NumberProtocol.ToString();
+                            queryString += " WHERE ID=" + t.ID.ToString();
+
+                            command = new SqlCommand(queryString, connection);
+                            command.Connection.Open();
+                            command.ExecuteNonQuery();
+                            command.Connection.Close();
+
+                        }
 
                         idProtocols.Add(t);
                     }
                 }
+                    catch(InvalidCastException)
+                {
+                   }
                 finally
                 {
                     reader.Close();
@@ -136,29 +170,45 @@ namespace Protocols.Requests
         }
         private static double FindMin(int n0, int n1, int n2, int n3, double[] arr, int len)
         {
-            double t = arr[n0];
-            for (int i = 1 + n0; i < n1; ++i)
+            if (len > 0)
             {
-                if (t > arr[i]) t = arr[i];
+                if (n0 >= len) n0 = len - 1;
+                if (n1 >= len) n1 = len - 1;
+                if (n2 >= len) n2 = len - 1;
+                if (n3 >= len) n3 = len - 1;
+                double t = arr[n0];
+                for (int i = 1 + n0; i < n1; ++i)
+                {
+                    if (t > arr[i]) t = arr[i];
+                }
+                for (int i = n3; i < n3; ++i)
+                {
+                    if (t > arr[i]) t = arr[i];
+                }
+                return t;
             }
-            for (int i = n3; i < n3; ++i)
-            {
-                if (t > arr[i]) t = arr[i];
-            }
-            return t;
+            return 0;
         }
         private static double FindMax(int n0, int n1, int n2, int n3, double[] arr, int len)
         {
-            double t = arr[n0];
-            for (int i = 1 + n0; i < n1; ++i)
+            if (len > 0)
             {
-                if (t < arr[i]) t = arr[i];
+                if (n0 >= len) n0 = len - 1;
+                if (n1 >= len) n1 = len - 1;
+                if (n2 >= len) n2 = len - 1;
+                if (n3 >= len) n3 = len - 1;
+                double t = arr[n0];
+                for (int i = 1 + n0; i < n1; ++i)
+                {
+                    if (t < arr[i]) t = arr[i];
+                }
+                for (int i = n3; i < n3; ++i)
+                {
+                    if (t < arr[i]) t = arr[i];
+                }
+                return t;
             }
-            for (int i = n3; i < n3; ++i)
-            {
-                if (t < arr[i]) t = arr[i];
-            }
-            return t;
+            return 0;
         }
         public static IList<TubesPacketResult> BodyProtocol(int id)
         {
@@ -602,6 +652,9 @@ namespace Protocols.Requests
                     , 145
                 };
 
+                Regex regex = new Regex(@"(.+\,.)");
+                Match match;
+
                 while (reader.Read())
                 {
                     TubesPacketResult packet = new TubesPacketResult();
@@ -703,15 +756,25 @@ namespace Protocols.Requests
                     {
                         minBuf[i] = BitConverter.ToDouble(tmpBuf, i * sizeof(double));
                     }
-                    double findT = FindMin(n0, n1, n2, n3, minBuf, count);
-                    packet.MinThickness = Math.Round(findT, 1).ToString();
+                    double x = FindMin(n0, n1, n2, n3, minBuf, count);
+                    match = regex.Match(x.ToString());
+                    if (match.Success)
+                    {
+                        x = Convert.ToDouble(match.Groups[1].Value);
+                    }
+                    packet.MinThickness = x.ToString();
                     reader.GetBytes(8, 0, tmpBuf, 0, bytesCount);
                     for (int i = 0; i < count; ++i)
                     {
                         maxBuf[i] = BitConverter.ToDouble(tmpBuf, i * sizeof(double));
                     }
-                    findT = FindMax(n0, n1, n2, n3, maxBuf, count);
-                    packet.MaxThickness = Math.Round(findT, 1).ToString();
+                    x = FindMax(n0, n1, n2, n3, maxBuf, count);
+                    match = regex.Match(x.ToString());
+                    if (match.Success)
+                    {
+                        x = Convert.ToDouble(match.Groups[1].Value);
+                    }
+                    packet.MaxThickness = x.ToString();
                     //-минимум максимум в зоне конец
                     t.Add(packet);
                 }

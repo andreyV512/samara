@@ -1,0 +1,1 @@
+ALTER TABLE StoredBase0.dbo.ProtocolsTable DROP COLUMN ProtocolNumber 

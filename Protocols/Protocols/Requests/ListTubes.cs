@@ -10,7 +10,7 @@ namespace Protocols.Requests
 {
     public class RequestListTubes
     {
-        static public IEnumerable<TubesView> Get(//long protocols
+        static public IEnumerable<TubesView> Get(
               string NumberPacket
             , string Alloy
             , string DeliveryStatus
@@ -19,14 +19,7 @@ namespace Protocols.Requests
             , string ProductCodeNumber           
             , string Standart)
         {
-            string query = 
-               // "SELECT tt.NumberTube, tt.Date_Time"
-               //+ " FROM TubesTable tt"
-               //+ " JOIN ProtocolsTable pt"
-               //+ " ON tt.IDProtocolsTable = pt.ID"
-               //+ " WHERE pt.NumberPacket = @packet"
-               //+ " ORDER BY tt.Date_Time";
-
+            string query =               
             "SELECT tt.NumberTube, tt.Date_Time"
               + " FROM [StoredBase0].[dbo].TubesTable tt"
               + " JOIN [StoredBase0].[dbo].ProtocolsTable pt"
@@ -45,7 +38,6 @@ namespace Protocols.Requests
             {
                 SqlCommand command = new SqlCommand(query, connection);
 
-                //command.Parameters.Add("@packet", SqlDbType.VarChar);
                  command.Parameters.Add("@NumberPacket", SqlDbType.VarChar);
                  command.Parameters.Add("@Alloy", SqlDbType.VarChar);
                  command.Parameters.Add("@DeliveryStatus", SqlDbType.VarChar);
@@ -54,8 +46,6 @@ namespace Protocols.Requests
                  command.Parameters.Add("@ProductCodeNumber", SqlDbType.VarChar);
                  command.Parameters.Add("@Standart", SqlDbType.VarChar);
 
-
-                //command.Parameters["@packet"].Value = packet;
                 command.Parameters["@NumberPacket"].Value = NumberPacket       ;
                 command.Parameters["@Alloy"].Value = Alloy              ;
                 command.Parameters["@DeliveryStatus"].Value = DeliveryStatus		;
