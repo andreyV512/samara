@@ -132,18 +132,6 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 
 				if(999999 != t) 
 				{
-					/*{
-				int k = 0;
-				for(int z = 0; z < ff.width; ++z)
-				{
-					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[z])	++k;
-				}
-				//if(k <= ff.medianIndex) status = StatusId<Clr<Undefined>>();
-				if(k > ff.medianIndex) status = StatusId<Clr<BrakStrobe2<Thickness>>>();
-				else status = StatusId<Clr<Undefined>>();
-			}
-
-					*/
 					ret = f.Add(t, bit, st, (void *)&s[i]);
 					t = f.buf[ret];
 					st = f.status[ret];
@@ -160,14 +148,14 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					{
 						
 						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
-						status[cnt] = st;//f.status[ret];
+						status[cnt] = st;
 						data[cnt] = t;
 						if(Status == status[cnt]) data[cnt] = f.bit2[ret];
 					}
 				}
 				else
 				{
-					t = 0;//Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone];
+					t = 0;
 					if(cnt >= 0)
 					{					
 						data[cnt] = t;
