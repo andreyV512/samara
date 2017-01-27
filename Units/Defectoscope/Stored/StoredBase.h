@@ -58,6 +58,7 @@ STR_PARAM(Gang, 32, L"Смена");
 STR_PARAM(ProductCodeNumber, 32, L"Шифр изделия");
 STR_PARAM(NumberPacket, 16, L"00000");
 STR_PARAM(Standart, 32, L"№СОП");
+DEFINE_PARAM(ProtocolNumber, int, 0);
 
 struct ProtocolsTable
 {
@@ -69,6 +70,7 @@ struct ProtocolsTable
 		, ProductCodeNumber		//Шифр изделия
 		, NumberPacket			//Номер партии
 		, Standart				//№СОП
+		, ProtocolNumber
 	>::Result items_list;
 	typedef TL::Factory<items_list> TItems;
 	TItems items;
