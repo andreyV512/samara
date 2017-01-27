@@ -182,6 +182,7 @@ void MedianFiltre::Clear(int width_)
 	width = width_;
 	ZeroMemory(buf, sizeof(buf));
 	ZeroMemory(bufX, sizeof(bufX));
+	ZeroMemory(status, sizeof(status));
 	for(int i = 0; i < width; ++i)
 	{
 			ind[i] = i;
