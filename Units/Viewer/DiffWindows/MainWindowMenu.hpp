@@ -13,7 +13,7 @@ namespace MainWindowMenu
 	MENU_TEXT(L"Файл", TopMenu<MainFile>)
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	struct LoadDateFile: LoadDataDlg{};//{static void Do(HWND h){zprint("");}};
-	struct SaveDateFile: StoredDataDlg{};//{static void Do(HWND h){zprint("");}};
+	struct SaveDateFile: StoreXMLDlg{};//{static void Do(HWND h){zprint("");}};
 	struct Compute     : RecalculationDlg{};//{static void Do(HWND h){zprint("");}};
 	struct MainExit
 	{
@@ -25,7 +25,7 @@ namespace MainWindowMenu
 	};
 
 	MENU_ITEM(L"Загрузить данные", LoadDateFile)
-	MENU_ITEM(L"Сохранить данные", SaveDateFile)
+	MENU_ITEM(L"Сохранить XML файл", SaveDateFile)
 	MENU_ITEM(L"Перерасчёт", Compute)
 	MENU_ITEM(L"Выход", MainExit)
 
@@ -33,7 +33,7 @@ namespace MainWindowMenu
 	{
 		typedef TL::MkTlst<
 			MenuItem<LoadDateFile>
-			//, MenuItem<SaveDateFile>
+			, MenuItem<SaveDateFile>
 			, Separator<0>
 			, MenuItem<Compute>
 			, Separator<1>

@@ -434,6 +434,9 @@
     <ClCompile Include="Viewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Defectoscope\Stored\StoreXML.cpp">
+      <Filter>Common\Stored</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Defectoscope\App\AppBase.h">

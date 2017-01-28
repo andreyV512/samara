@@ -79,7 +79,26 @@ void LoadDataDlg::Do(HWND h)
 	{
 		AnimationWindow::Init(h, L"Загрузка");
 		
-		__load__(o.sFile);
+		__load__(o.sFile); 
+		wchar_t *s = o.sFile;
+		int len = wcslen(s);
+		int i = len - 1;
+		for(; i > 0; --i)
+		{
+			if('.' == s[i])
+			{
+				s[i] = 0;
+				break;
+			}
+		}
+		for(; i > 0; --i)
+		{
+			if('/' == s[i] || '\\' == s[i])
+			{
+				break;
+			}
+		}
+        wcscpy(app.nameFile, &s[i + 1]);
 		return;
 	}
 	MessageBox(h, L"Файл не загружен", L"Ошибка!!!", MB_ICONERROR);

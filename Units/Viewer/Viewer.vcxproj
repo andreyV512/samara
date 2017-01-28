@@ -158,6 +158,7 @@
     <ClCompile Include="..\Defectoscope\Stored\PacketBase.cpp" />
     <ClCompile Include="..\Defectoscope\Stored\ProtocolTable.cpp" />
     <ClCompile Include="..\Defectoscope\Stored\Stored.cpp" />
+    <ClCompile Include="..\Defectoscope\Stored\StoreXML.cpp" />
     <ClCompile Include="..\Defectoscope\Windows\Common.cpp" />
     <ClCompile Include="..\Defectoscope\Windows\CrossThresholdWindow.cpp" />
     <ClCompile Include="..\Defectoscope\Windows\CrossViewer.cpp" />

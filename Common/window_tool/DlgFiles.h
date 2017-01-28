@@ -3,6 +3,7 @@
 #include <Commdlg.h>
 class SaveData
 {
+public:
 	OPENFILENAME ofn;
 public:
 	wchar_t sFile[256];

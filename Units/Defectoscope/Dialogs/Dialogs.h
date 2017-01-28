@@ -43,6 +43,7 @@ DLG(BaseLengthDlg)
 
 DLG(BrackStrobe2Dlg)
 DLG(ProtectiveThickeningDlg)
+DLG(StoreXMLDlg)
 
 #undef DLG
 

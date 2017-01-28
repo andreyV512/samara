@@ -33,6 +33,7 @@ public:
 public:
 	MainWindow &mainWindow;
 	static const int &lengthCaretka;
+	wchar_t nameFile[64];
 public:
 	App();
 	void Init();
