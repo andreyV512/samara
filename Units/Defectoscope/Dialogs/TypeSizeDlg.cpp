@@ -41,13 +41,14 @@ namespace
 						id = Select<Owner::Table>(base).eq<NameParam>(owner.table.items.get<NameParam>().value).Execute();	
 						MessageBox(h, L"Типоразмер создан", L"Сообщение!!!", MB_ICONINFORMATION);
 					}
-					CurrentParametersTable curr = Singleton<CurrentParametersTable>::Instance();
+					CurrentParametersTable &curr = Singleton<CurrentParametersTable>::Instance();
 					curr.items.get<CurrentID>().value = id;
 					UpdateWhere<CurrentParametersTable>(curr, base).ID(1).Execute();
 
 					HWND hMain = GetParent(h);
 					MainWindow *o = (MainWindow *)GetWindowLongPtr(hMain, GWLP_USERDATA);
-					o->select.AddMenuItem(buf);
+					o->select.AddMenuItem(buf);					
+					o->select.Do(TCommand(hMain, 0, 1, o->select.hWnd));
 				}
 				EndDialog(h, TRUE);
 			}
@@ -136,7 +137,7 @@ void AddTypeSizeDlg::Do(HWND h)
 
 		if(NewUSPCFile(h, s))
 		{
-			Singleton<ParametersTable>::Instance().items.get<NameParam>().value = s;
+			//Singleton<ParametersTable>::Instance().items.get<NameParam>().value = s;
 			wchar_t b[256];
 			wcscpy(b, s);
 			ExistCurrentUSPCFile(b);
