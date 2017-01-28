@@ -50,19 +50,19 @@ namespace
 			MedianFiltre &ff = f[i];
 			return ff.buf[ff.Add(data)];
 		}
-		inline double operator()(int i, double data, double &bit, int &status)
+		inline double operator()(int i, double data, double &bit, int &status, int &status2)
 		{
 			MedianFiltre &ff = f[i];
 			int index = ff.Add(data, status);
 			status = ff.status[index];
-			if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
+			//if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
 			{
 				int k = 0;
 				for(int z = 0; z < ff.width; ++z)
 				{
 					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[z])	++k;
 				}
-				if(k <= ff.medianIndex) status = StatusId<Clr<Undefined>>();
+				if(k <= ff.medianIndex) status2 = StatusId<Clr<Undefined>>();
 				//if(k > ff.medianIndex) status = StatusId<Clr<BrakStrobe2<Thickness>>>();
 				//else status = StatusId<Clr<Undefined>>();
 			}
@@ -82,7 +82,7 @@ namespace
 		{
 			return data;
 		}
-		inline double operator()(int i, double data, double &, int &)
+		inline double operator()(int i, double data, double &, int &, int &)
 		{
 			return data;
 		}
@@ -194,8 +194,6 @@ namespace
 			double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
-			//d.statusMin[i] = StatusId<Clr<Undefined>>();
-			//d.statusMax[i] = StatusId<Clr<Undefined>>();
 			d.commonStatus[i] =  StatusId<Clr<Undefined>>();
 			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
 			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
@@ -222,6 +220,7 @@ namespace
 						double bit = 0;
 						static const int Status = StatusId<Clr<BrakStrobe2<Thickness>>>();
 						int status = StatusId<Clr<Undefined>>();
+						int status2 = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
 							double gate1_position_ = uspc.param[b[j].Channel].get<gate1_position>().value;
@@ -251,18 +250,13 @@ namespace
 						double t = nominal;
 						if(999999 != val)
 						{
-							nominal = t = filtre(channel, val, bit, status);
+							nominal = t = filtre(channel, val, bit, status, status2);
 						}
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
-						//	if(StatusId<Clr<Undefined>>() == d.statusMax[i])
-							{
-								//d.statusMax[i] = StatusId<Clr<DeathZone>>();
-								//d.statusMin[i] = StatusId<Clr<DeathZone>>();
-								d.commonStatus[i] =  StatusId<Clr<DeathZone>>();
-							}
+							d.commonStatus[i] =  StatusId<Clr<DeathZone>>();
 						}
 						else
 						{	
@@ -271,46 +265,18 @@ namespace
 								if(t > d.bufferMax[i] && !d.cancelOperatorSensor[channel][i])
 								{										
 									d.bufferMax[i] = bit;
-									//if(status == Status && t >= (maxThickness[i] - minThickness[i])) status =  StatusId<Clr<Nominal>>();
-									//char st = 0;
-									//StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-									//int x[4];
-									//x[0] = d.statusMax[i];
-									//x[1] = st;
-									//x[2] = status;
-									//x[3] = -1;
-									//int res;
-									//SelectMessage(x, res);
-									//d.statusMax[i] = res;
 								}
 								else
 								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
 								{
-									//char st = StatusId<Clr<Undefined>>();
-									d.bufferMin[i] = bit;	
-									//if(status == Status)
-									//{
-									//	d.bufferMin[i] = bit;
-									//}
-									//else
-									//{
-									//	StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-									//}
-									//int x[4];
-									//x[0] = d.statusMin[i];
-									//x[1] = st;
-									//x[2] = status;
-									//x[3] = -1;
-									//int res;
-									//SelectMessage(x, res);
-									//d.statusMin[i] = res;
-									//if( StatusId<Clr<BorderLower<Thickness>>>() == res)	d.bufferMin[i] = t;
+									d.bufferMin[i] = bit;										
 								}
 							    if(!d.cancelOperatorSensor[channel][i])
 								{
 									int x[] = {
 										d.commonStatus[i]
 										, status
+										, status2
 										, StatusId<Clr<Nominal>>()
 										, -1
 									};
@@ -325,8 +291,6 @@ namespace
 			}
 		}
 
-		//int buf[4];
-		//buf[3] = -1;
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{	
 			bool b = true;
@@ -335,13 +299,7 @@ namespace
 				b = b && d.cancelOperatorSensor[channel][i];
 				if(!b)break;
 			}
-			//
-			//buf[0] = d.statusMin[i];		
-			//buf[1] = d.statusMax[i];
-			//buf[2] = b ? StatusId<Clr<Cancel<Projectionist>>>(): StatusId<Clr<Nominal>>();
-			//int t = 0;
-			//SelectMessage(buf, t);
-
+			
 			if(b)d.commonStatus[i] = StatusId<Clr<Cancel<Projectionist>>>();
 
 			if(-1 == d.bufferMax[i])

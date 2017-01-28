@@ -68,8 +68,6 @@ class USPCViewerThicknessData: public USPCData
 public:
 	double bufferMin[App::count_zones];	///<Вычисленные данные разбитые по датчикам и зонам
 	double bufferMax[App::count_zones];	///<Вычисленные данные разбитые по датчикам и зонам
-	char statusMin[App::count_zones];
-	char statusMax[App::count_zones];	
 	typedef TL::MkTlst<
 		scope_range    
 		, scope_offset   
