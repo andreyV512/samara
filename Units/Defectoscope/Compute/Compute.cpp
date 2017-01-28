@@ -62,8 +62,8 @@ namespace
 				{
 					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[z])	++k;
 				}
-				if(k <= ff.medianIndex) status2 = StatusId<Clr<Undefined>>();
-				//if(k > ff.medianIndex) status = StatusId<Clr<BrakStrobe2<Thickness>>>();
+				//if(k <= ff.medianIndex) status2 = StatusId<Clr<Undefined>>();
+				if(k > ff.medianIndex) status2 = StatusId<Clr<BrakStrobe2<Thickness>>>();
 				//else status = StatusId<Clr<Undefined>>();
 			}
 			return ff.buf[index];
@@ -260,30 +260,30 @@ namespace
 						}
 						else
 						{	
-							if(999999 != val)
+							if(999999 != val && !d.cancelOperatorSensor[channel][i])
 							{
-								if(t > d.bufferMax[i] && !d.cancelOperatorSensor[channel][i])
+								char st =  StatusId<Clr<Nominal>>(); 
+								if(t > d.bufferMax[i])
 								{										
-									d.bufferMax[i] = bit;
+									d.bufferMax[i] = t;//bit;
+									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
 								}
 								else
-								if(0 != t &&  t < d.bufferMin[i] && !d.cancelOperatorSensor[channel][i])
-								{
-									d.bufferMin[i] = bit;										
-								}
-							    if(!d.cancelOperatorSensor[channel][i])
-								{
+									if(0 != t &&  t < d.bufferMin[i])
+									{
+										d.bufferMin[i] = t;//bit;
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
+									}
 									int x[] = {
 										d.commonStatus[i]
 										, status
-										, status2
-										, StatusId<Clr<Nominal>>()
-										, -1
+											, status2
+											, st
+											, -1
 									};
 									int res;
 									SelectMessage(x, res);
 									d.commonStatus[i] = res;
-								}
 							}
 						}
 					}
@@ -293,14 +293,27 @@ namespace
 
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{	
-			bool b = true;
+			//bool b = true;
+			//for(int channel = 0; channel < App::count_sensors; ++channel) 
+			//{
+			//	b = b && d.cancelOperatorSensor[channel][i];
+			//	if(!b)break;
+			//}
+			//if(b)d.commonStatus[i] = StatusId<Clr<Cancel<Projectionist>>>();
+
 			for(int channel = 0; channel < App::count_sensors; ++channel) 
-			{
-				b = b && d.cancelOperatorSensor[channel][i];
-				if(!b)break;
-			}
-			
-			if(b)d.commonStatus[i] = StatusId<Clr<Cancel<Projectionist>>>();
+				if(d.cancelOperatorSensor[channel][i])
+				{
+					int x[] = {
+						d.commonStatus[i]
+						, StatusId<Clr<Cancel<Projectionist>>>() 
+						, -1
+					};
+					int res;
+					SelectMessage(x, res);
+					d.commonStatus[i] = res;
+					break;
+				}
 
 			if(-1 == d.bufferMax[i])
 			{

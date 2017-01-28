@@ -58,10 +58,20 @@ namespace SelectMesageN
 		{
 			if(p & (1 << TL::IndexOf<__selected_list__, O>::value))
 			{
-				//p.get<__selectItem__<Undefined>>().value = false;
-				//p.get<__selectItem__<Nominal>>().value = false;
 				p &= ~(1 << TL::IndexOf<__selected_list__, Undefined>::value);
 				p &= ~(1 << TL::IndexOf<__selected_list__, Nominal>::value);
+			}
+		}
+	};
+
+	template<class P>struct __skip__X<Cancel<Projectionist>, P>
+	{
+		typedef Cancel<Projectionist> O;
+		void operator()(P &p)
+		{
+			if(p & (1 << TL::IndexOf<__selected_list__, O>::value))
+			{
+				p &= ~(1 << TL::IndexOf<__selected_list__, Undefined>::value);
 			}
 		}
 	};
@@ -131,12 +141,7 @@ namespace SelectMesageN
 		void operator()(P &p)
 		{
 			if(p & (1 << TL::IndexOf<__selected_list__, BorderDefect<X>>::value))
-			//if(p.get<__selectItem__<BorderDefect<X>>>().value)
 			{
-				//p.get<__selectItem__<Undefined>>().value = false;
-				//p.get<__selectItem__<Nominal>>().value = false;
-				//p.get<__selectItem__<BorderKlass2<X>>>().value = false;
-
 				p &= ~(1 << TL::IndexOf<__selected_list__, Undefined>::value);
 				p &= ~(1 << TL::IndexOf<__selected_list__, Nominal>::value);
 				p &= ~(1 << TL::IndexOf<__selected_list__, BorderKlass2<X>>::value);
@@ -314,7 +319,7 @@ namespace SelectMesageN
 				{
 					start = mid;
 					mid = (stop + start) / 2;
-				}
+				}				
 				if(__sorted_bit__[mid].__bits__ == res)
 				{
 					break;

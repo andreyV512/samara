@@ -176,11 +176,12 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 							, stat//, status[cnt]
 							);
 					//}
-					int x[] = {
-						stat
-						, st
-						, st2
-					};
+						int x[] = {
+							stat
+							, st
+							, st2
+							, -1
+						};
 					int res = 0;
 					SelectMessage(x, res);
 					status[cnt] = res;
