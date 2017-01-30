@@ -55,7 +55,7 @@ namespace
 			MedianFiltre &ff = f[i];
 			int index = ff.Add(data, status);
 			status = ff.status[index];
-			//if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
+			if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status)
 			{
 				int k = 0;
 				for(int z = 0; z < ff.width; ++z)
@@ -63,7 +63,10 @@ namespace
 					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[z])	++k;
 				}
 				//if(k <= ff.medianIndex) status2 = StatusId<Clr<Undefined>>();
-				if(k > ff.medianIndex) status2 = StatusId<Clr<BrakStrobe2<Thickness>>>();
+				if(k > ff.medianIndex) 
+				{
+					status = StatusId<Clr<BrakStrobe2<Thickness>>>();
+				}
 				//else status = StatusId<Clr<Undefined>>();
 			}
 			return ff.buf[index];
@@ -241,7 +244,7 @@ namespace
 										if(t > brackStrobe)
 										{
 											status = Status;
-										//	val = val2;										
+											//val = val2;										
 										}
 									}
 								}
@@ -250,7 +253,10 @@ namespace
 						double t = nominal;
 						if(999999 != val)
 						{
-							nominal = t = filtre(channel, val, bit, status, status2);
+							int stat = StatusId<Clr<Undefined>>();
+							nominal = t = filtre(channel, val, bit, status, stat);//us2);
+							//status = 0;
+							//if(status == Status) t = bit;
 						}
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
