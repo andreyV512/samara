@@ -344,9 +344,10 @@ namespace Stored
 		unsigned countGb = unsigned(freeBytesAvailable.QuadPart / (1024 * 1024 * 1024));
 		try
 		{
-
+			dprint("test disk size %d < 100\n", countGb);
 			if(count > 10000 || (diskSizeOk && (countGb < 100))) //меньше 100 гиго байт
 			{
+				dprint("disk size %d < 100   ok!!!!!\n", countGb);
 				COleDateTime tme;
 				CMD(b).CommandText(
 					L"SELECT max([Date_Time]) as TME FROM TubesTable"\
@@ -359,7 +360,7 @@ namespace Stored
 					L"DELETE FROM [TubesTable] WHERE Date_Time<?"
 					).Param(tme).Execute();
 
-				//RemoveNULLTables(b);
+				RemoveNULLTables(b);
 
 				CMD(b).CommandText(L"SELECT count([Date_Time]) as C FROM TubesTable").GetValue(L"C", count);
 				return;
