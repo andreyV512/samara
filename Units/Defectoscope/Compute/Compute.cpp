@@ -241,7 +241,7 @@ namespace
 										if(t > brackStrobe)
 										{
 											status = Status;
-											val = val2;										
+										//	val = val2;										
 										}
 									}
 								}

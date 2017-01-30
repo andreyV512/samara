@@ -124,7 +124,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 								if(tt > brackStrobe)
 								{
 									st = Status;
-									t = val2;
+								//	t = val2;
 								}
 							}
 						}
@@ -151,7 +151,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
 						status[cnt] = st;
 						data[cnt] = t;
-						if(Status == status[cnt]) data[cnt] = f.bit2[ret];
+						//if(Status == status[cnt]) data[cnt] = f.bit2[ret];
 					}
 				}
 				else
