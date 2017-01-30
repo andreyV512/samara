@@ -59,7 +59,7 @@ namespace Protocols.Requests
                 
                 try
                 {
-                    if (reader.Read())
+                    while(reader.Read())
                     {
                         IDTimeCount t = new IDTimeCount();
                         t.ID = (int)reader[0];
@@ -75,35 +75,35 @@ namespace Protocols.Requests
                         t.ProductCodeNumber = (string)reader[9];
                         t.NumberPacket      = (string)reader[10];
                         t.Standart          = (string)reader[11];
-                        command.Connection.Close();
-                        if (0 == t.NumberProtocol)
-                        {
-                            queryString =
-                                "SELECT max(ProtocolNumber )AS x" 
-                                + " FROM ProtocolsTable AS p"
-                                + " INNER JOIN TubesTable AS t"
-                                + " ON p.ID = t.IDProtocolsTable"
-                                + " WHERE YEAR(t.Date_Time)= @year"
-                                ;
-                            command = new SqlCommand(queryString, connection);
-                            command.Parameters.Add("@year", SqlDbType.Int);
-                            command.Parameters["@year"].Value = t.TteTme.Year;
-                            command.Connection.Open();
-                            reader = command.ExecuteReader();
-                           
-                            reader.Read();
-                            t.NumberProtocol = 1 + (int)((reader[0] is DBNull) ? 0 : reader[0]);
-                            command.Connection.Close();
-
-                            queryString = "UPDATE ProtocolsTable SET ProtocolNumber=" + t.NumberProtocol.ToString();
-                            queryString += " WHERE ID=" + t.ID.ToString();
-
-                            command = new SqlCommand(queryString, connection);
-                            command.Connection.Open();
-                            command.ExecuteNonQuery();
-                            command.Connection.Close();
-
-                        }
+                        //command.Connection.Close();
+                        //if (0 == t.NumberProtocol)
+                        //{
+                        //    queryString =
+                        //        "SELECT max(ProtocolNumber )AS x" 
+                        //        + " FROM ProtocolsTable AS p"
+                        //        + " INNER JOIN TubesTable AS t"
+                        //        + " ON p.ID = t.IDProtocolsTable"
+                        //        + " WHERE YEAR(t.Date_Time)= @year"
+                        //        ;
+                        //    command = new SqlCommand(queryString, connection);
+                        //    command.Parameters.Add("@year", SqlDbType.Int);
+                        //    command.Parameters["@year"].Value = t.TteTme.Year;
+                        //    command.Connection.Open();
+                        //    reader = command.ExecuteReader();
+                        //   
+                        //    reader.Read();
+                        //    t.NumberProtocol = 1 + (int)((reader[0] is DBNull) ? 0 : reader[0]);
+                        //    command.Connection.Close();
+                        //
+                        //    queryString = "UPDATE ProtocolsTable SET ProtocolNumber=" + t.NumberProtocol.ToString();
+                        //    queryString += " WHERE ID=" + t.ID.ToString();
+                        //
+                        //    command = new SqlCommand(queryString, connection);
+                        //    command.Connection.Open();
+                        //    command.ExecuteNonQuery();
+                        //    command.Connection.Close();
+                        //
+                        //}
 
                         idProtocols.Add(t);
                     }
