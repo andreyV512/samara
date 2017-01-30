@@ -75,35 +75,7 @@ namespace Protocols.Requests
                         t.ProductCodeNumber = (string)reader[9];
                         t.NumberPacket      = (string)reader[10];
                         t.Standart          = (string)reader[11];
-                        //command.Connection.Close();
-                        //if (0 == t.NumberProtocol)
-                        //{
-                        //    queryString =
-                        //        "SELECT max(ProtocolNumber )AS x" 
-                        //        + " FROM ProtocolsTable AS p"
-                        //        + " INNER JOIN TubesTable AS t"
-                        //        + " ON p.ID = t.IDProtocolsTable"
-                        //        + " WHERE YEAR(t.Date_Time)= @year"
-                        //        ;
-                        //    command = new SqlCommand(queryString, connection);
-                        //    command.Parameters.Add("@year", SqlDbType.Int);
-                        //    command.Parameters["@year"].Value = t.TteTme.Year;
-                        //    command.Connection.Open();
-                        //    reader = command.ExecuteReader();
-                        //   
-                        //    reader.Read();
-                        //    t.NumberProtocol = 1 + (int)((reader[0] is DBNull) ? 0 : reader[0]);
-                        //    command.Connection.Close();
-                        //
-                        //    queryString = "UPDATE ProtocolsTable SET ProtocolNumber=" + t.NumberProtocol.ToString();
-                        //    queryString += " WHERE ID=" + t.ID.ToString();
-                        //
-                        //    command = new SqlCommand(queryString, connection);
-                        //    command.Connection.Open();
-                        //    command.ExecuteNonQuery();
-                        //    command.Connection.Close();
-                        //
-                        //}
+                        
 
                         idProtocols.Add(t);
                     }
@@ -119,12 +91,46 @@ namespace Protocols.Requests
             return idProtocols;
         }
 
+        private static long GetProtocolNumber(SqlConnection connection, long NumberProtocol, DateTime date_time, int ID)
+        {
+            if (0 == NumberProtocol)
+            {
+                string queryString =
+                    "SELECT max(ProtocolNumber )AS x" 
+                    + " FROM ProtocolsTable AS p"
+                    + " INNER JOIN TubesTable AS t"
+                    + " ON p.ID = t.IDProtocolsTable"
+                    + " WHERE YEAR(t.Date_Time)= @year"
+                    ;
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Parameters.Add("@year", SqlDbType.Int);
+                command.Parameters["@year"].Value = date_time.Year;
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+               
+                reader.Read();
+                NumberProtocol = 1 + (int)((reader[0] is DBNull) ? 0 : reader[0]);
+                command.Connection.Close();
+            
+                queryString = "UPDATE ProtocolsTable SET ProtocolNumber=" + NumberProtocol.ToString();
+                queryString += " WHERE ID=" + ID.ToString();
+            
+                command = new SqlCommand(queryString, connection);
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+                command.Connection.Close();
+            
+            }
+            return NumberProtocol;
+        }
+
         public static IEnumerable<UltrasonicControlProductModels> HeaderProtocol(int id, long numberProtocol, DateTime dteTme, int count, string Operator)
         {
             List<UltrasonicControlProductModels> res = new List<UltrasonicControlProductModels>();
 
             string queryString = "SELECT [Alloy],[DeliveryStatus],[NormativeDocument],[Gang]"
               + ",[ProductCodeNumber],[NumberPacket],[Standart]"
+              + ", ProtocolNumber"
               + " FROM [ProtocolsTable]"
               + "WHERE [ID]= @id"
             ;
@@ -151,11 +157,14 @@ namespace Protocols.Requests
                         t.ProductCodeNumber = (string)reader[4];
                         t.NumberPacket = (string)reader[5];
                         t.Standart = (string)reader[6];
+                        numberProtocol = (int)((reader[7] is DBNull) ? 0 : reader[7]);
 
                         t.Count = count;
                         t.TteTme = dteTme;
                         t.Operator = Operator;
-
+                        command.Connection.Close();
+                        //(SqlConnection connection, int NumberProtocol, DateTime date_time, int ID)
+                        numberProtocol = GetProtocolNumber(connection, numberProtocol, dteTme, id);
                         t.NumberProtocol = numberProtocol.ToString();
 
                         res.Add(t);
