@@ -32,7 +32,7 @@ namespace
 				);
 		}
 
-		fwprintf(f, L"</Zones>\n</Tube>\n</Tubes>\n");
+		fwprintf(f, L"</Zones>\n</Tube>\n</Tubes>\n</PacketXML>\n");
 	}
 	
 }
