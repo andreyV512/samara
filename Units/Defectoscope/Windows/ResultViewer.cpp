@@ -13,7 +13,6 @@ bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int xx, y;
 	chart.CoordCell(l.x, l.y, xx, y);
-	//currentX = xx;
 	int left = chart.rect.left + chart.offsetAxesLeft;
 	int right = chart.rect.right - chart.offsetAxesRight;
 	int t = right - left;

@@ -17,11 +17,11 @@ namespace
 
 		for(int i = 0; i < data.currentOffsetZones; ++i)
 		{
-			char minV[32];
+			char minV[32] = {};
 			sprintf(minV, "%.2f", data.bufferMin[i]);
 			for(char *ss = minV; *ss; ++ss){if('.' == *ss){ss += 2;*ss = '\0';break;}}
 
-			char maxV[32];
+			char maxV[32] = {};
 			sprintf(maxV, "%.2f", data.bufferMax[i]);
 			for(char *ss = maxV; *ss; ++ss){if('.' == *ss){ss += 2;*ss = '\0';break;}}
 
