@@ -536,7 +536,7 @@ namespace Stored
 
 	void CleanStoredBase()
 	{
-		QueueUserWorkItem(__CleanStoredBase__, NULL, WT_EXECUTEDEFAULT);
+		//QueueUserWorkItem(__CleanStoredBase__, NULL, WT_EXECUTEDEFAULT);
 	}
 
 	void CleanStoredBaseTest()
