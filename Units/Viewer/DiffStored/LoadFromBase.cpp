@@ -66,7 +66,7 @@ namespace FromBase
 			__load_path[len] = '\0';
 			Stored::DataFromFile(__load_path);		
 			if(existZipFile)DeleteFile(__load_path);
-			compute.CancelOperatorClear();
+	//		compute.CancelOperatorClear();
 			compute.Recalculation();
 			AnimationWindow::Destroy();
 			return 0;
