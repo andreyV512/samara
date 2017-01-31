@@ -50,7 +50,8 @@ namespace
 			MedianFiltre &ff = f[i];
 			return ff.buf[ff.Add(data)];
 		}
-		inline double operator()(int i, double data, double &bit, int &status, int &status2)
+		//inline double operator()(int i, double data, double &bit, int &status, int &status2)
+		inline double operator()(int i, double data, int &status)
 		{
 			MedianFiltre &ff = f[i];
 			int index = ff.Add(data, status);
@@ -62,12 +63,10 @@ namespace
 				{
 					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[z])	++k;
 				}
-				//if(k <= ff.medianIndex) status2 = StatusId<Clr<Undefined>>();
 				if(k > ff.medianIndex) 
 				{
 					status = StatusId<Clr<BrakStrobe2<Thickness>>>();
 				}
-				//else status = StatusId<Clr<Undefined>>();
 			}
 			return ff.buf[index];
 		}
@@ -85,7 +84,8 @@ namespace
 		{
 			return data;
 		}
-		inline double operator()(int i, double data, double &, int &, int &)
+		//inline double operator()(int i, double data, double &, int &, int &)
+		inline double operator()(int i, double data, int &)
 		{
 			return data;
 		}
@@ -194,13 +194,14 @@ namespace
 
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
+			//double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
 			d.commonStatus[i] =  StatusId<Clr<Undefined>>();
 			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
 			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
+			////	double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 				WORD channel = b[jj].Channel;	
 				if(channel < App::count_sensors)
 				{
@@ -244,20 +245,20 @@ namespace
 										if(t > brackStrobe)
 										{
 											status = Status;
-											//val = val2;										
+											bit = val2;										
 										}
 									}
 								}
 							}
 						}
-						double t = nominal;
-						if(999999 != val)
-						{
-							int stat = StatusId<Clr<Undefined>>();
-							nominal = t = filtre(channel, val, bit, status, stat);//us2);
-							//status = 0;
-							//if(status == Status) t = bit;
-						}
+						double t = 0;//nominal;
+						if(999999 == val) val = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
+					//	{
+							//int stat = StatusId<Clr<Undefined>>();
+							//nominal = t = filtre(channel, val, bit, status, stat);
+							//nominal = 
+								t = filtre(channel, val, status);
+						//}
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
@@ -269,27 +270,28 @@ namespace
 							if(999999 != val && !d.cancelOperatorSensor[channel][i])
 							{
 								char st =  StatusId<Clr<Nominal>>(); 
-								if(t > d.bufferMax[i])
-								{										
-									d.bufferMax[i] = t;//bit;
-									StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-								}
-								else
-									if(0 != t &&  t < d.bufferMin[i])
-									{
-										d.bufferMin[i] = t;//bit;
+								if(status != Status)
+								{
+									if(t > d.bufferMax[i])
+									{										
+										d.bufferMax[i] = t;
 										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
 									}
-									int x[] = {
-										d.commonStatus[i]
-										, status
-											, status2
-											, st
-											, -1
-									};
-									int res;
-									SelectMessage(x, res);
-									d.commonStatus[i] = res;
+									else if(0 != t &&  t < d.bufferMin[i])
+									{
+										d.bufferMin[i] = t;
+										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
+									}
+								}
+								int x[] = {
+									d.commonStatus[i]
+									, status
+										, st
+										, -1
+								};
+								int res;
+								SelectMessage(x, res);
+								d.commonStatus[i] = res;
 							}
 						}
 					}

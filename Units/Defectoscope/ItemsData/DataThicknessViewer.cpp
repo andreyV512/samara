@@ -136,7 +136,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					ret = f.Add(t, bit, st, (void *)&s[i]);
 					t = f.buf[ret];
 					st = f.status[ret];
-				//	if(StatusId<Clr<BrakStrobe2<Thickness>>>() == st)
+					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == st)
 					{
 						int k = 0;
 						for(int z = 0; z < f.width; ++z)
@@ -147,7 +147,6 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					}
 					if(cnt >= 0)
 					{
-						
 						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
 						status[cnt] = st;
 						data[cnt] = t;
