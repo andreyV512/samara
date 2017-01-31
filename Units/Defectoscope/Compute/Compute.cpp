@@ -183,12 +183,7 @@ namespace
 	, double (&normThickness)[App::count_zones], double (&minThickness)[App::count_zones], double (&maxThickness)[App::count_zones])
 	{
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
-		//if(b->CycleAlarm || b->PrfAlarm || b->PowerAlarm)
-		//{
-		//	dprint("b->CycleAlarm %d b->PrfAlarm %d b->PowerAlarm %d\n"
-		//		, b->CycleAlarm, b->PrfAlarm, b->PowerAlarm
-		//		);
-		//}
+		
 		T filtre(f);
 		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
 
@@ -201,7 +196,6 @@ namespace
 			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
 			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
-			////	double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 				WORD channel = b[jj].Channel;	
 				if(channel < App::count_sensors)
 				{

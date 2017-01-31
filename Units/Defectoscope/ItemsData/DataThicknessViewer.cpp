@@ -126,7 +126,6 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						}
 					}
 				}
-				bool err = false;
 				status[cnt] = StatusId<Clr<Undefined>>();				
 				{
 					ret = f.Add(t, st, (void *)&s[i]);
