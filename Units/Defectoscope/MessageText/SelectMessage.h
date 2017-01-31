@@ -17,5 +17,7 @@ struct ColorBar
 
 bool TubeResult(char (&res)[App::count_zones], int count);
 
+bool CancelOperator(int id, unsigned &color);
+
 
 

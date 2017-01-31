@@ -425,15 +425,7 @@ namespace
 				UndefinedItem(data);
 			}
 		}
-	};
-
-	
-
-	
-
-	
-
-	
+	};	
 
 	void CommonStatus(bool &tubeResult)
 	{

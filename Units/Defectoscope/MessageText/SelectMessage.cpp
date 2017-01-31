@@ -343,7 +343,6 @@ namespace SelectMesageN
 	{
 		
         unsigned res = 0;
-		unsigned *tmp = __bits__;
 		while(-1 != *x)
 		{
 			if(*x < dimention_of(__bits__)) res |= __bits__[*x];
@@ -456,5 +455,21 @@ char *StatusText::operator()(int id, int &color, bool &visible)
 	 if(id < TL::Length<label_message_list>::value) return __message__[id];
 
 	return "";
+}
+
+
+bool CancelOperator(int id, unsigned &color)
+{
+	if(id < dimention_of(SelectMesageN::__bits__)) 
+	{
+		unsigned res = SelectMesageN::__bits__[id];
+		static const int offs = TL::IndexOf<SelectMesageN::__selected_list__, Cancel<Projectionist>>::value;
+		if(res & (1 << offs))
+		{
+			color = *__color__[offs];
+			return true;
+		}
+	}
+	return false;
 }
 

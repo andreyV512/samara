@@ -9,6 +9,12 @@
 //------------------------------------------------------------------------------------------------------
 using namespace Gdiplus;
 
+ResultViewer::CancelOperatorSeries::CancelOperatorSeries(Chart &c): barSeries(c){}
+void ResultViewer::CancelOperatorSeries::Draw()
+{
+	barSeries.Draw();
+}
+
 bool ResultViewer::Draw(TMouseMove &l, VGraphics &g)
 {
 	int xx, y;
@@ -57,6 +63,22 @@ bool ResultViewer::GetColorBar(int zone, double &data, unsigned &color)
 
 	return zone < viewerData.currentOffsetZones;
 }
+bool ResultViewer::GetColorBarCancelOperator(int zone, double &data, unsigned &color)
+{
+	data = 0;
+	if(CancelOperator(viewerData.commonStatus[zone], color))
+	{
+		data = 0.3;
+	}
+	//ColorBar()(
+	//	data
+	//	, color
+	//	, 0
+	//    , data
+	//	);
+
+	return zone < viewerData.currentOffsetZones;
+}
 //-----------------------------------------------------------------------------
 ResultViewer::ResultViewer()
 	: backScreen(NULL)
@@ -80,6 +102,8 @@ ResultViewer::ResultViewer()
 
 	cursor.SetMouseMoveHandler(this, &ResultViewer::Draw);
 	chart.items.get<BarSeries>().SetColorBarHandler(this, &ResultViewer::GetColorBar);
+
+	chart.items.get<CancelOperatorSeries>().barSeries.SetColorBarHandler(this, &ResultViewer::GetColorBarCancelOperator);
 
 	chart.items.get<BottomAxesMeters__>().minBorder = 0;
 	chart.items.get<BottomAxesMeters__>().maxBorder = 0.001 * App::count_zones * App::zone_length;

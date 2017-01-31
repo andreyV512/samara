@@ -15,11 +15,21 @@ class ResultViewer
 	public:
 		BottomAxesMeters__(Chart &c): BottomAxesMeters(c, App::zone_length){}
 	};
+
+	class CancelOperatorSeries
+	{
+	public:
+		BarSeries barSeries;
+		CancelOperatorSeries(Chart &c);//: barSeries(c){}
+		void Draw();
+	};
+
 public:
 	typedef ChartDraw<Chart, TL::MkTlst<
 		EmptyLeftAxes
 		, BottomAxesMeters__
 		, BarSeries
+		, CancelOperatorSeries
 		, FixedGrid		
 	>::Result> TChart;
 	TChart chart;
@@ -46,5 +56,6 @@ public:
 
 	bool Draw(TMouseMove &, VGraphics &);
 	bool GetColorBar(int , double &, unsigned &);
+	bool ResultViewer::GetColorBarCancelOperator(int zone, double &data, unsigned &color);
 };
 
