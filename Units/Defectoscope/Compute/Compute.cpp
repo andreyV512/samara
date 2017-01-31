@@ -194,7 +194,7 @@ namespace
 
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			//double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
+			double nominal = maxThickness[i];//Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
 			d.commonStatus[i] =  StatusId<Clr<Undefined>>();
@@ -251,15 +251,15 @@ namespace
 								}
 							}
 						}
-						double t = 0;//nominal;
-						if(999999 == val) val = maxThickness[i];
+						double t = nominal;
+						if(999999 != val)// val = maxThickness[i];
 						//	Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
-					//	{
+						{
 							//int stat = StatusId<Clr<Undefined>>();
 							//nominal = t = filtre(channel, val, bit, status, stat);
 							//nominal = 
 								t = filtre(channel, val, status);
-						//}
+						}
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
