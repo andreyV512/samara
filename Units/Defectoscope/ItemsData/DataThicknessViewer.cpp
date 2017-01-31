@@ -101,9 +101,9 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 			{
 				double t = 999999;
 				double bit = 0;
-				static const int Status = TL::IndexOf<ColorTable::items_list, Clr<BrakStrobe2<Thickness>>>::value;
+				static const int Status = StatusId<Clr<BrakStrobe2<Thickness>>>();
 				char st = StatusId<Clr<Undefined>>();
-				char st2 = StatusId<Clr<Undefined>>();
+			//	char st2 = StatusId<Clr<Undefined>>();
 				if(s[i].hdr.G1Tof)
 				{
 					double gate1_position_ = d.param[channel].get<gate1_position>().value;
@@ -124,71 +124,106 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 								if(tt > brackStrobe)
 								{
 									st = Status;
-								//	t = val2;
 								}
 							}
 						}
 					}
 				}
-
-				if(999999 != t) 
+				bool err = false;
+				status[cnt] = StatusId<Clr<Undefined>>();
+				//if(999999 == t)
+				//{
+				////	t = 1000;
+				//	err = true;
+				//}
 				{
 					ret = f.Add(t, bit, st, (void *)&s[i]);
 					t = f.buf[ret];
 					st = f.status[ret];
-					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == st)
+					if(Status == st)
 					{
 						int k = 0;
 						for(int z = 0; z < f.width; ++z)
 						{
-							if(StatusId<Clr<BrakStrobe2<Thickness>>>() == f.status[z])	++k;
+							if(Status == f.status[z])	++k;
 						}
-						if(k > f.medianIndex) st2 = StatusId<Clr<BrakStrobe2<Thickness>>>();
+						if(k > f.medianIndex) st = Status;
 					}
 					if(cnt >= 0)
 					{
 						scan[cnt] = (USPC7100_ASCANDATAHEADER *)f.data[ret];
 						status[cnt] = st;
 						data[cnt] = t;
-						//if(Status == status[cnt]) data[cnt] = f.bit2[ret];
 					}
 				}
-				else
-				{
-					t = 0;
-					if(cnt >= 0)
-					{					
-						data[cnt] = t;
-						scan[cnt] = &s[i];
-						status[cnt] = StatusId<Clr<Undefined>>();
-					}
-				}
+				//else
+				//{
+				//	t = 0;
+				//	if(cnt >= 0)
+				//	{					
+				//		scan[cnt] = &s[i];
+				//		status[cnt] = StatusId<Clr<Undefined>>();
+				//	}
+				//}
 				if(cnt >= 0)
 				{
-					//if(Status != status[cnt])
-					//{
-					    char stat = StatusId<Clr<Undefined>>();
+					if(999999 != t)
+					{
+						char stat = StatusId<Clr<Undefined>>();
 						StatusZoneThickness(offs, t, zone
 							, aboveBorder  
 							, lowerBorder  
 							, nominalBorder
-							, stat//, status[cnt]
+							, stat//status[cnt]//, status[cnt]
 							);
-					//}
-						int x[] = {
-							stat
-							, st
-							, st2
-							, -1
-						};
-					int res = 0;
-					SelectMessage(x, res);
-					status[cnt] = res;
+						if(StatusId<Clr<Undefined>>() != status[cnt])
+						{
+							int x[] = {
+								stat
+								, status[cnt]
+								, -1
+							};
+							int res = 0;
+							SelectMessage(x, res);
+							status[cnt] = res;
+						}
+						else 
+						{
+							status[cnt] = stat;
+						}
+					}
 					if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
-					if( StatusId<Clr<Undefined>>() == status[cnt]) 
-						data[cnt] = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone];
+				//	if( StatusId<Clr<Undefined>>() == status[cnt]) 
+				//		data[cnt] = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone];
 				}
 				if(++cnt >= (int)dimention_of(data)) break;
+			}			
+		}
+		double sum = 0;
+		int count =0;
+		for(int i = 0; i < cnt; ++i)
+		{
+			if(StatusId<Clr<BrakStrobe2<Thickness>>>() != status[i] && StatusId<Clr<Undefined>>() != status[i])
+			{
+				sum += data[i];
+				++count;
+			}
+		}
+		if(0 == count) count = 1;
+		sum /= count;
+		for(int i = 0; i < cnt; ++i)
+		{
+			if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status[i])
+			{
+				if(1.5 * sum < data[i])
+				{
+					data[i] = sum;
+					status[i] = StatusId<Clr<Undefined>>();
+				}
+			}
+			else if(StatusId<Clr<Undefined>>() == status[i])
+			{
+				data[i] = sum;
 			}
 		}
 	}
