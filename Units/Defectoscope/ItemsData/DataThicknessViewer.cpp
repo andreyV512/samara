@@ -31,7 +31,6 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 	int i = start + offs;
 	ItemData<Thickness> &d = Singleton<ItemData<Thickness> >::Instance();
 	double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get<BrakStrobe2<Thickness>>().value;
-	double nominal = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[zone_];
 	int ret = 0;
 	if(!medianFiltreOn)
 	{		
@@ -100,10 +99,8 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 			if(channel == s[i].Channel)
 			{
 				double t = 999999;
-				double bit = 0;
 				static const int Status = StatusId<Clr<BrakStrobe2<Thickness>>>();
 				char st = StatusId<Clr<Undefined>>();
-			//	char st2 = StatusId<Clr<Undefined>>();
 				if(s[i].hdr.G1Tof)
 				{
 					double gate1_position_ = d.param[channel].get<gate1_position>().value;
@@ -111,7 +108,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					double strob = 0.005 * s[i].hdr.G1Tof;
 					if(gate1_position_ < strob && (gate1_position_ + gate1_width_) >  strob)
 					{
-						bit = t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
+						t = 2.5e-6 * s[i].hdr.G1Tof *d.param[channel].get<gate1_TOF_WT_velocity>().value;
 						if(s[i].hdr.G2Tof)
 						{
 							double gate2_position_ = d.param[channel].get<gate2_position>().value;
@@ -130,14 +127,9 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 					}
 				}
 				bool err = false;
-				status[cnt] = StatusId<Clr<Undefined>>();
-				//if(999999 == t)
-				//{
-				////	t = 1000;
-				//	err = true;
-				//}
+				status[cnt] = StatusId<Clr<Undefined>>();				
 				{
-					ret = f.Add(t, bit, st, (void *)&s[i]);
+					ret = f.Add(t, st, (void *)&s[i]);
 					t = f.buf[ret];
 					st = f.status[ret];
 					if(Status == st)
@@ -156,15 +148,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						data[cnt] = t;
 					}
 				}
-				//else
-				//{
-				//	t = 0;
-				//	if(cnt >= 0)
-				//	{					
-				//		scan[cnt] = &s[i];
-				//		status[cnt] = StatusId<Clr<Undefined>>();
-				//	}
-				//}
+				
 				if(cnt >= 0)
 				{
 					if(999999 != t)
@@ -174,7 +158,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 							, aboveBorder  
 							, lowerBorder  
 							, nominalBorder
-							, stat//status[cnt]//, status[cnt]
+							, stat
 							);
 						if(StatusId<Clr<Undefined>>() != status[cnt])
 						{
@@ -193,8 +177,6 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 						}
 					}
 					if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
-				//	if( StatusId<Clr<Undefined>>() == status[cnt]) 
-				//		data[cnt] = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness> >().value[zone];
 				}
 				if(++cnt >= (int)dimention_of(data)) break;
 			}			
