@@ -252,7 +252,8 @@ namespace
 							}
 						}
 						double t = 0;//nominal;
-						if(999999 == val) val = Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
+						if(999999 == val) val = maxThickness[i];
+						//	Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
 					//	{
 							//int stat = StatusId<Clr<Undefined>>();
 							//nominal = t = filtre(channel, val, bit, status, stat);
