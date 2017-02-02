@@ -183,6 +183,11 @@ namespace
 	, double (&normThickness)[App::count_zones], double (&minThickness)[App::count_zones], double (&maxThickness)[App::count_zones])
 	{
 		unsigned start = GetTickCount();
+		GUARD
+		{
+			unsigned stop = GetTickCount();
+			dprint("\ntime %d\n", stop - start);
+		};
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		
 		T filtre(f);

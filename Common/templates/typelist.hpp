@@ -593,3 +593,25 @@ namespace TL
 	};
 //--------------------------------------------------------------------------------------------------
 }
+#define __UNIQUENAME(n, c) n##c
+#define _UNIQUENAME(n, c) __UNIQUENAME(n, c)
+#define UNIQUENAME(n) _UNIQUENAME(n, __COUNTER__) 
+
+namespace detail
+{
+	struct VAL{};
+	template<class T>class Guard
+	{
+		T t;
+	public:
+		Guard(T &t) : t(t){}
+		~Guard(){t();}
+	};
+
+	template<class T>Guard<T> operator +(VAL, T t)
+	{
+		return Guard<T>(t);
+	}
+}
+
+#define GUARD auto UNIQUENAME(GUARD_NAME) = detail::VAL() + [&]
