@@ -207,6 +207,28 @@ template<int NUM>struct Wchar_from<double, NUM>
 		return buf;
 	}
 };
+#pragma warning(disable : 4996)
+struct OneDigit
+{
+	wchar_t buf[64];
+	OneDigit(){buf[0] = 0;}
+	OneDigit(double n)
+	{
+		(*this)(n);
+	}
+	wchar_t *operator()(){return buf;}		
+	wchar_t *operator()(double n)
+	{
+		char xbuf[dimention_of(buf)];
+		sprintf(xbuf, "%.2f", n);
+		char *s = xbuf;
+		for(; *s; ++s){if('.' == *s){s += 2;*s = '\0';break;}}
+		size_t ConvertedChars;
+		mbstowcs_s(&ConvertedChars, buf, xbuf, s - xbuf);
+		return buf;
+	}	
+};
+
 template<int NUM>struct Wchar_from<float, NUM>
 {
 	wchar_t buf[128];

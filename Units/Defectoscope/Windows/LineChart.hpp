@@ -203,11 +203,11 @@ namespace
 			if(d->hdr.G1Tof)
 			{
 				double tmp = 2.5e-6 * d->hdr.G1Tof * t.param[d->Channel].get<gate1_TOF_WT_velocity>().value;
-				wsprintf(s1, L"<ff>толщина1 <ffffff>%s", Wchar_from<double>(tmp)());
+				wsprintf(s1, L"<ff>толщина1 <ffffff>%s", OneDigit(tmp)());
 				if(d->hdr.G2Tof)
 				{
 					double tmp = 2.5e-6 * d->hdr.G2Tof * t.param[d->Channel].get<gate2_TOF_WT_velocity>().value;
-					wsprintf(s2, L"<ff>толщина2 <ffffff>%s", Wchar_from<double>(tmp)());
+					wsprintf(s2, L"<ff>толщина2 <ffffff>%s", OneDigit(tmp)());
 				}
 			}
 			wsprintf(buffer, L"%s %s" , s1, s2);
