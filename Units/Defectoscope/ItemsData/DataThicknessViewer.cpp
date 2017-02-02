@@ -175,6 +175,10 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 							status[cnt] = stat;
 						}
 					}
+					else
+					{
+						data[cnt] = 0;
+					}
 					if(d.cancelOperatorSensor[channel][zone]) status[cnt] = StatusId<Clr<Cancel<Projectionist>>>();
 				}
 				if(++cnt >= (int)dimention_of(data)) break;
@@ -184,7 +188,7 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		int count =0;
 		for(int i = 0; i < cnt; ++i)
 		{
-			if(StatusId<Clr<BrakStrobe2<Thickness>>>() != status[i] && StatusId<Clr<Undefined>>() != status[i])
+			if(/*!IsBrackStrobe(status[i]) && */StatusId<Clr<Undefined>>() != status[i])
 			{
 				sum += data[i];
 				++count;
@@ -193,18 +197,18 @@ void ThicknessData::Set(int zone_, int start, int stop, int channel, int offs, i
 		if(0 == count) count = 1;
 		sum /= count;
 		for(int i = 0; i < cnt; ++i)
-		{
-			if(StatusId<Clr<BrakStrobe2<Thickness>>>() == status[i])
+		{			
+			if(StatusId<Clr<Undefined>>() == status[i])
+			{
+				data[i] = sum;
+			}
+			else //if(IsBrackStrobe(status[i]))
 			{
 				if(1.5 * sum < data[i])
 				{
 					data[i] = sum;
 					status[i] = StatusId<Clr<Undefined>>();
 				}
-			}
-			else if(StatusId<Clr<Undefined>>() == status[i])
-			{
-				data[i] = sum;
 			}
 		}
 	}

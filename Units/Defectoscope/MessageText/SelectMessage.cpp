@@ -473,3 +473,14 @@ bool CancelOperator(int id, unsigned &color)
 	return false;
 }
 
+bool IsBrackStrobe(int id)
+{
+	if(id < dimention_of(SelectMesageN::__bits__)) 
+	{
+		unsigned res = SelectMesageN::__bits__[id];
+		static const int offs = TL::IndexOf<SelectMesageN::__selected_list__, BrakStrobe2<Thickness>>::value;
+		if(res & (1 << offs)) return true;		
+	}
+	return false;
+}
+

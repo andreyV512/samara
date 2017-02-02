@@ -212,12 +212,12 @@ namespace Stored
 		}
 
 		ThicknessTable tt;
-		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMin, sizeof(MinMaxThickness::type_value));
+		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.movingAverageMin, sizeof(MinMaxThickness::type_value));
 		Insert_Into<ThicknessTable>(tt, base).Execute();
 		int minID = 0;
 		CMD(base).CommandText(L"SELECT max([ID]) as C FROM ThicknessTable").Execute().GetValue(L"C", minID);
 
-		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.bufferMax, sizeof(MinMaxThickness::type_value));
+		memmove(tt.items.get<MinMaxThickness>().value, thicknessData.movingAverageMax, sizeof(MinMaxThickness::type_value));
 		Insert_Into<ThicknessTable>(tt, base).Execute();
 		int maxID = 0;
 		CMD(base).CommandText(L"SELECT max([ID]) as C FROM ThicknessTable").Execute().GetValue(L"C", maxID);

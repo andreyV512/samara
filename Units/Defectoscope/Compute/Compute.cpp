@@ -147,7 +147,7 @@ namespace
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
-							if(StatusId<Clr<Undefined>>() == d.status[channel][i])
+						//	if(StatusId<Clr<Undefined>>() == d.status[channel][i])
 							{
 								d.status[channel][i] = StatusId<Clr<DeathZone>>();
 							}
@@ -182,18 +182,24 @@ namespace
 	template<class T, class Data>void ComputeData(USPCViewerThicknessData &d, MedianFiltre (&f)[App::count_sensors]
 	, double (&normThickness)[App::count_zones], double (&minThickness)[App::count_zones], double (&maxThickness)[App::count_zones])
 	{
+		unsigned start = GetTickCount();
 		USPC7100_ASCANDATAHEADER *b = d.ascanBuffer;
 		
 		T filtre(f);
 		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
+		static const int buf_size = 512;
+		double data[App::count_sensors][buf_size];
+		char status[App::count_sensors][buf_size];
+
 
 		for(int i = 0; i < d.currentOffsetZones; ++i)
 		{
-			double nominal = maxThickness[i];//Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
+			double nominal = maxThickness[i];
 			d.bufferMin[i] = 1000;
 			d.bufferMax[i] = -1;
 			d.commonStatus[i] =  StatusId<Clr<Undefined>>();
 			ItemData<Thickness> &uspc = Singleton<ItemData<Thickness>>::Instance();
+			int offset = 0;
 			for(int jj = d.offsets[i], last = d.offsets[i + 1]; jj < last; ++jj)
 			{
 				WORD channel = b[jj].Channel;	
@@ -214,11 +220,9 @@ namespace
 								}
 							}
 						}
-						double val = 999999;
-						double bit = 0;
+						double t = 999999;
 						static const int Status = StatusId<Clr<BrakStrobe2<Thickness>>>();
-						int status = StatusId<Clr<Undefined>>();
-						int status2 = StatusId<Clr<Undefined>>();
+						int st = StatusId<Clr<Undefined>>();
 						if(b[j].hdr.G1Tof)
 						{
 							double gate1_position_ = uspc.param[b[j].Channel].get<gate1_position>().value;
@@ -226,7 +230,7 @@ namespace
 							double strob = 0.005 * b[j].hdr.G1Tof;
 							if(gate1_position_ < strob && (gate1_position_ + gate1_width_) >  strob)
 							{
-								bit = val = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
+								t = 2.5e-6 * b[j].hdr.G1Tof * d.param[channel].get<gate1_TOF_WT_velocity>().value;
 								if(b[j].hdr.G2Tof)
 								{
 									double gate2_position_ = uspc.param[b[j].Channel].get<gate2_position>().value;
@@ -235,93 +239,181 @@ namespace
 									if(gate2_position_ < strob && (gate2_position_ + gate2_width_) >  strob)
 									{
 										double val2 = 2.5e-6 * b[j].hdr.G2Tof * d.param[channel].get<gate2_TOF_WT_velocity>().value;
-										double t = val - val2;
-										if(t > brackStrobe)
+										double tt = t - val2;
+										if(tt > brackStrobe)
 										{
-											status = Status;
-											bit = val2;										
+											st = Status;
 										}
 									}
 								}
 							}
 						}
-						double t = nominal;
-						if(999999 != val)// val = maxThickness[i];
-						//	Singleton<ThresholdsTable>::Instance().items.get<BorderNominal<Thickness>>().value[i];
-						{
-							//int stat = StatusId<Clr<Undefined>>();
-							//nominal = t = filtre(channel, val, bit, status, stat);
-							//nominal = 
-								t = filtre(channel, val, status);
-						}
+
+						int offs = offset / App::count_sensors;
+						
+						t = filtre(channel, t, st);
+						status[channel][offs] = st;
+						data[channel][offs] = t;
+
 						int z = jj / App::count_sensors;
 						z *= App::count_sensors;
 						if(z < d.deadZoneSamplesBeg || z > d.deadZoneSamplesEnd)
 						{
-							d.commonStatus[i] =  StatusId<Clr<DeathZone>>();
+							status[channel][offs] = StatusId<Clr<DeathZone>>();
 						}
-						else
-						{	
-							if(999999 != val && !d.cancelOperatorSensor[channel][i])
+						else if(999999 != t)
+						{
+							char stat =  StatusId<Clr<Undefined>>();
+							StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, stat);
+							if(StatusId<Clr<Undefined>>() != st)
 							{
-								char st =  StatusId<Clr<Nominal>>(); 
-								if(status != Status)
-								{
-									if(t > d.bufferMax[i])
-									{										
-										d.bufferMax[i] = t;
-										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-									}
-									else if(0 != t &&  t < d.bufferMin[i])
-									{
-										d.bufferMin[i] = t;
-										StatusZoneThickness(j, t, i, normThickness, minThickness, maxThickness, st);
-									}
-								}
 								int x[] = {
-									d.commonStatus[i]
-									, status
-										, st
-										, -1
+									stat
+									, st
+									, -1
 								};
-								int res;
+								int res = 0;
 								SelectMessage(x, res);
-								d.commonStatus[i] = res;
+								status[channel][offs] = res;
+							}
+							else
+							{
+								status[channel][offs] = stat;
 							}
 						}
+						
 					}
-				}				
+				}	
+				if(++offset >= buf_size * App::count_sensors)break;
 			}
-		}
-
-		for(int i = 0; i < d.currentOffsetZones; ++i)
-		{	
-			//bool b = true;
-			//for(int channel = 0; channel < App::count_sensors; ++channel) 
-			//{
-			//	b = b && d.cancelOperatorSensor[channel][i];
-			//	if(!b)break;
-			//}
-			//if(b)d.commonStatus[i] = StatusId<Clr<Cancel<Projectionist>>>();
-
-			for(int channel = 0; channel < App::count_sensors; ++channel) 
-				if(d.cancelOperatorSensor[channel][i])
+			//--------------------------------------------------------------
+			int countSamples = offset / App::count_sensors;
+			double sum[App::count_sensors] = {};
+			int count[App::count_sensors] = {};
+			for(int k = 0; k < App::count_sensors; ++k)
+			{
+				for(int j = 0; j <  countSamples; ++j)
 				{
-					int x[] = {
-						d.commonStatus[i]
-						, StatusId<Clr<Cancel<Projectionist>>>() 
-						, -1
-					};
-					int res;
-					SelectMessage(x, res);
-					d.commonStatus[i] = res;
-					break;
+					char s = status[k][j]; 
+					if(StatusId<Clr<Undefined>>() != s)
+					{
+						sum[k] += data[k][j];
+						++count[k];
+					}
+				}
+			}
+			for(int k = 0; k < App::count_sensors; ++k)
+			{
+				if(0 == count[k]) count[k] = 1;
+				double tsum = sum[k] / count[k];
+				for(int j = 0; j <  countSamples; ++j)
+				{
+					char s = status[k][j];
+					
+					if(StatusId<Clr<Undefined>>() == s)
+					{
+						data[k][j] = tsum;
+					}
+					else 
+					{
+						if(1.5 * tsum < data[k][j])
+						{
+							data[k][j] = tsum;
+							status[k][j] = StatusId<Clr<Undefined>>();
+						}
+					}
+					
+				}
+			}
+			double min = 999999;
+			double max = 0;
+			char st[App::count_sensors] = {};
+			for(int k = 0; k < App::count_sensors; ++k)
+			{	
+				if(!d.cancelOperatorSensor[k][i])
+				{
+					char stat = StatusId<Clr<Undefined>>();
+					for(int j = 0; j <  countSamples; ++j)
+					{
+						char s = status[k][j];
+						if(!IsBrackStrobe(s) && StatusId<Clr<Undefined>>() != s)
+						{
+							double t = data[k][j];
+							if(min > t) min = t;
+							else if(max < t) max = t;
+						}
+						
+						int res;
+						if(StatusId<Clr<Undefined>>() != s)
+						{
+							int x[] = {
+								s
+								, st[k]
+								, -1
+							};
+							SelectMessage(x, res);
+							st[k] = res;
+						}
+					}
 				}
 
-			if(-1 == d.bufferMax[i])
-			{
-				 d.bufferMin[i] =  d.bufferMax[i] = maxThickness[i];
 			}
+			d.bufferMin[i] = min;
+			d.bufferMax[i] = max;
+//--------------------------------------------------------------
+#define xxx(n) d.cancelOperatorSensor[n][i] ? StatusId<Clr<Cancel<Projectionist>>>(): st[n]
+
+			int x[] =
+			{
+				xxx(0)
+				, xxx(1)
+				, xxx(2)
+				, xxx(3)
+				, xxx(4)
+				, xxx(5)
+				, xxx(6)
+				, xxx(7)
+				, -1
+			};
+			int res = 0;
+			SelectMessage(x, res);
+			d.commonStatus[i] = res;
+#undef xxx	
+//Вычисление скользящего среднего
+			double average[App::count_sensors] = {};
+			for(int k = 0; k < App::count_sensors; ++k)
+			{				
+				if(!d.cancelOperatorSensor[k][i])
+				{
+					double t = 0;
+					int count = 0;
+					for(int j = 0; j < countSamples; ++j)
+					{
+						if(StatusId<Clr<Nominal>>() == status[k][j])
+						{
+							t += data[k][j];
+							++count;
+						}						
+					}
+					if(count)
+					{
+						average[k] = t / count;
+					}
+				}
+			}
+			min = 999999;
+			max = 0;
+			for(int k = 0; k < App::count_sensors; ++k)
+			{
+				double t = average[k];
+				if(t)
+				{
+					if(t > max) max = t;
+					if(t < min) min = t;
+				}
+			}
+			d.movingAverageMax[i] = max;
+			d.movingAverageMin[i] = 999999 != min ? min : 0;
 		}
 	}
 
