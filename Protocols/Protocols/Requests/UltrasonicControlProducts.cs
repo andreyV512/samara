@@ -19,8 +19,8 @@ namespace Protocols.Requests
             string queryString =
            "SELECT "
            + "[IDProtocolsTable]"
-           //+ " , X "
            + ", pr.ProtocolNumber"
+     
            + ", [Date_Time], Count, op.[Operator]"
 
             + ", pr.[Alloy            ]"
@@ -36,7 +36,6 @@ namespace Protocols.Requests
                + " SELECT [IDProtocolsTable], [Date_Time],[IDOperator]"
                  + ", COUNT(*)OVER(PARTITION BY [IDProtocolsTable]) AS Count"
                  + ", ROW_NUMBER()OVER(PARTITION BY [IDProtocolsTable] ORDER BY [Date_Time])AS N"
-               //  + " , ROW_NUMBER()OVER(PARTITION BY YEAR([Date_Time])ORDER BY [Date_Time])AS X"
                + " FROM TubesTable"
            + ")AS tmp, OperatorsTable AS op, ProtocolsTable pr"
            + " WHERE N = 1 AND tmp.[IDOperator] = op.ID AND tmp.[IDProtocolsTable] = pr.ID"
