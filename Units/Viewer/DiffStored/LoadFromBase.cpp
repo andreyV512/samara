@@ -104,10 +104,22 @@ namespace FromBase
 
 
 			TubesTable tt;
-			b = base.IsOpen() && Select<TubesTable>(base).eq<Date_Time>(current).Execute(tt)
-				&& Select<StoredMeshureTable>(base)
-				.ID(tt.items.get<ID<StoredMeshureTable>>().value).ExecuteLoop<__get_tresholds__>(base);
-			base.Close();
+			b = base.IsOpen();
+			if(b)
+			{
+				dprint("base open ok\n");
+				b = 0 != Select<TubesTable>(base).eq<Date_Time>(current).Execute(tt);
+
+				if(b)
+				{
+					dprint("select current ok\n");
+					b = Select<StoredMeshureTable>(base)
+						.ID(tt.items.get<ID<StoredMeshureTable>>().value).ExecuteLoop<__get_tresholds__>(base);
+					
+					if(b) dprint("thresholds load ok");
+				}
+				base.Close();
+			}
 		}
 
 		if(b)
