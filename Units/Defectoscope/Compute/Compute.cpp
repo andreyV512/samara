@@ -192,7 +192,7 @@ namespace
 		
 		T filtre(f);
 		double brackStrobe = Singleton<BrackStrobe2Table>::Instance().items.get< BrakStrobe2<Thickness>>().value;
-		static const int buf_size = 512;
+		static const int buf_size = 1024;
 		double data[App::count_sensors][buf_size];
 		char status[App::count_sensors][buf_size];
 

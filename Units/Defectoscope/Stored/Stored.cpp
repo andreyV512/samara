@@ -66,6 +66,7 @@ namespace Stored
 	bool DataFromFile(wchar_t *path)
 	{
 		FILE *f = _wfopen(path, L"rb");
+		dprint("%S\n", path);
 		if(NULL != f)
 		{
 			fread(&crossData.currentOffsetFrames, sizeof(int), 1, f);

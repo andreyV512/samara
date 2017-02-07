@@ -83,10 +83,17 @@ namespace FromBase
 		int sec   = ToInt(&path[10]);
 		COleDateTime current(year, month, day, hour, min, sec);
 
+		dprint("path from file --->  %S\n", path);
+
+
+
 		bool b = COleDateTime::valid == current.GetStatus();
 
 		if(b)
 		{
+			CString str = current.Format(_T("%Y  %m  %d  %H %M %S"));
+            dprint("test base test time   ---> %S\n", str);
+
 			StoredBase parameters;
 
 			CExpressBase base(
@@ -105,6 +112,7 @@ namespace FromBase
 
 		if(b)
 		{
+			dprint("load data  from base ok\n");
 			wchar_t buf[1024];
 			DWORD length = GetModuleFileName( NULL, buf, 1024);
 			PathRemoveFileSpec(buf);
