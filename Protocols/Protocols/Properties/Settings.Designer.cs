@@ -26,7 +26,7 @@ namespace Protocols.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=A1;Initial Catalog=StoredBase0;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(local);Initial Catalog=StoredBase0;Integrated Security=True")]
         public string StoredBaseConnectionString {
             get {
                 return ((string)(this["StoredBaseConnectionString"]));
