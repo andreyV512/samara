@@ -2,7 +2,7 @@
 #include "Base.hpp"
 
 namespace{
-static const wchar_t *connStr = L"Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Data Source=(local)\\SQLEXPRESS;Initial Catalog=%s;";
+static const wchar_t *connStr = L"Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Data Source=(local);Initial Catalog=%s;";
 }
 
 class CExpressBase: public CBase
@@ -19,7 +19,7 @@ public:
 		}
 		catch(...)
 		{   
-			conn->Open(L"Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Data Source=(local)\\SQLEXPRESS", L"", L"",NULL);
+			conn->Open(L"Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Data Source=(local)", L"", L"",NULL);
 			wsprintf(buf, L"CREATE DATABASE %s", name);
 			conn->Execute(buf, NULL, ADODB::adExecuteNoRecords); 
 			wsprintf(buf, L"ALTER DATABASE %s MODIFY FILE ( NAME = '%s_log', MAXSIZE = 5GB , FILEGROWTH = 10%)", name, name);			
