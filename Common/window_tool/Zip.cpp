@@ -204,10 +204,12 @@ namespace Zip
 			, &si
 			, &pi
 			);
+		if(!b) dprint("run not unzip\n");
 		if(b)
 		{
-			WaitForSingleObject(pi.hProcess, INFINITE); 
-
+			if(b) dprint("wait while unzip file\n");
+			unsigned res = WaitForSingleObjectEx(pi.hProcess, INFINITE, FALSE); 
+            dprint("unzip file ok  ret WaitForSingleObject %x  %d\n", res, res);
 			CloseHandle(pi.hThread); 
 			CloseHandle(pi.hProcess);
 		}
