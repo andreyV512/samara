@@ -83,17 +83,10 @@ namespace FromBase
 		int sec   = ToInt(&path[10]);
 		COleDateTime current(year, month, day, hour, min, sec);
 
-		dprint("path from file --->  %S\n", path);
-
-
-
 		bool b = COleDateTime::valid == current.GetStatus();
 
 		if(b)
 		{
-			CString str = current.Format(_T("%Y  %m  %d  %H %M %S"));
-            dprint("test base test time   ---> %S\n", str);
-
 			StoredBase parameters;
 
 			CExpressBase base(
@@ -126,12 +119,20 @@ namespace FromBase
 		{
 			dprint("load data  from base ok\n");
 			wchar_t buf[1024];
-#if 0
+			//wchar_t sub[1024];
+#if 1
 			DWORD length = GetModuleFileName( NULL, buf, 1024);
 			PathRemoveFileSpec(buf);
-			wsprintf(&buf[wcslen(buf)], L"\\..\\Stored\\%s.dat", path);
+
+			//wcscpy(sub, path);
+			for(int i = wcslen(buf) - 1; i > 0; --i)
+			{
+				if('\\' == buf[i] || '/' == buf[i]) {buf[i] = 0; break;}
+			}
+
+			wsprintf(&buf[wcslen(buf)], L"\\Stored\\%s.dat", path);
 #else
-			wsprintf(buf, L"..\\Stored\\%s.dat", path);
+			wsprintf(buf, L"Stored\\%s.dat", path);
 #endif
 			dprint("%S\n", path);
 			AnimationWindow::Init(h, L"Загрузка");

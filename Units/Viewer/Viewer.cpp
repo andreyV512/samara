@@ -35,7 +35,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		SetForegroundWindow(h);	
 		int num = 0;
 		LPWSTR *arg = CommandLineToArgvW(GetCommandLineW(), &num);
-		if(12 == wcslen(arg[1]))
+		if(10 < num && 12 == wcslen(arg[1]))
 		{
 			data.lpData = arg[1];
 			SendMessage(h, WM_COPYDATA, (WPARAM)h, (LPARAM)&data);
