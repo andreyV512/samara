@@ -204,6 +204,7 @@ namespace Zip
 			, &si
 			, &pi
 			);
+		dprint("%S\n", path);
 		if(!b) dprint("run not unzip\n");
 		if(b)
 		{

@@ -126,9 +126,13 @@ namespace FromBase
 		{
 			dprint("load data  from base ok\n");
 			wchar_t buf[1024];
+#if 0
 			DWORD length = GetModuleFileName( NULL, buf, 1024);
 			PathRemoveFileSpec(buf);
 			wsprintf(&buf[wcslen(buf)], L"\\..\\Stored\\%s.dat", path);
+#else
+			wsprintf(buf, L"..\\Stored\\%s.dat", path);
+#endif
 			dprint("%S\n", path);
 			AnimationWindow::Init(h, L"Загрузка");
 			__load__ load(buf);
