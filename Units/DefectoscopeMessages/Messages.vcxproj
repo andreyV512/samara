@@ -90,7 +90,7 @@
     <ClCompile Include="..\..\Common\window_tool\Pass.cpp" />
     <ClCompile Include="..\Defectoscope\Log\LogBuffer.cpp" />
     <ClCompile Include="..\Defectoscope\Log\LogMessages.cpp" />
-    <ClCompile Include="AppMess\App.cpp" />
+    <ClCompile Include="DiffApp\App.cpp" />
     <ClCompile Include="Dlg\DlgProc.cpp" />
     <ClCompile Include="MessagesLog.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Messages;Dlg;../Log;../Widgets;../Base;Windows;../Messages;../window_tool;../templates;App;../debug_tools;</AdditionalIncludeDirectories>
@@ -126,8 +126,8 @@
     <ClInclude Include="..\..\Common\window_tool\ToolBarWidth.hpp" />
     <ClInclude Include="..\Defectoscope\Log\LogBuffer.h" />
     <ClInclude Include="..\Defectoscope\Log\LogMessages.h" />
-    <ClInclude Include="AppMess\App.h" />
-    <ClInclude Include="AppMess\config.h" />
+    <ClInclude Include="DiffApp\App.h" />
+    <ClInclude Include="DiffApp\config.h" />
     <ClInclude Include="Dlg\Dialogs.h" />
     <ClInclude Include="MessagesLog.h" />
     <ClInclude Include="Resource.h" />

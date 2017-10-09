@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="App">
-      <UniqueIdentifier>{6e24f5e2-4c1b-4fdd-a77f-f2b810423b57}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Windows">
       <UniqueIdentifier>{d76141a6-a9c6-4c4d-b59c-8f2b7d756c5b}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="Common\debug_tools">
       <UniqueIdentifier>{3004eac3-3efc-4939-a4e3-cc2655752a7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DiffApp">
+      <UniqueIdentifier>{6e24f5e2-4c1b-4fdd-a77f-f2b810423b57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,11 +96,11 @@
     <ClCompile Include="..\..\Common\debug_tools\DebugMess.cpp">
       <Filter>Common\debug_tools</Filter>
     </ClCompile>
-    <ClCompile Include="AppMess\App.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
     <ClCompile Include="MessagesLog.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffApp\App.cpp">
+      <Filter>DiffApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,14 +194,14 @@
     <ClInclude Include="Dlg\Dialogs.h">
       <Filter>Dlg</Filter>
     </ClInclude>
-    <ClInclude Include="AppMess\App.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="AppMess\config.h">
-      <Filter>App</Filter>
-    </ClInclude>
     <ClInclude Include="MessagesLog.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffApp\App.h">
+      <Filter>DiffApp</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffApp\config.h">
+      <Filter>DiffApp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
