@@ -63,9 +63,9 @@ namespace
 				{
 					if(StatusId<Clr<BrakStrobe2<Thickness>>>() == ff.status[z])	++k;
 				}
-				if(k > ff.medianIndex) 
+				if(k <= ff.medianIndex) 
 				{
-					status = StatusId<Clr<BrakStrobe2<Thickness>>>();
+					status =  StatusId<Clr<Undefined>>();
 				}
 			}
 			return ff.buf[index];
