@@ -4,7 +4,7 @@
 #include "window_tool/message.h"
 #include "resource.h"
 #include "templates/WindowsEventTemplate.hpp"
-#include "DiffApp\App.h"
+#include "AppMess\App.h"
 //---------------------------------------------------------------------------------
 ATOM MyRegisterClass(WNDPROC WndProc
 	, const wchar_t *windowClassName
