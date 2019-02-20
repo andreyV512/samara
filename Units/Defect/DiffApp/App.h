@@ -25,7 +25,7 @@ public:
 	static const int number_tube       =  2;
 	static const int operator_name      = 3;
 
-	static const int count_frames = 1000000;
+	static const int count_frames = 2000000;
 	static const int count_frames_per_channel = count_frames / count_sensors;
 	static const int thickness_number = 0;
 	static const int long_number = 1;
