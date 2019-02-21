@@ -447,6 +447,7 @@ template<class T, int i = 0>struct __set_message__;
 
 char *StatusText::operator()(int id, int &color, bool &visible)
 {
+	if(id < 0 || id >= TL::Length<label_message_list>::value) id = TL::IndexOf<label_message_list, Clr<Undefined>>::value;
 	color = *__color__[id];
 
 	 visible = !(TL::IndexOf<label_message_list, Clr<Undefined>>::value == id 
