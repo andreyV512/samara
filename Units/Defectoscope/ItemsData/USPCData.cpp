@@ -12,6 +12,8 @@
 
 #pragma comment(lib, "Winmm.lib")
 
+USPC7100_ASCANDATAHEADER USPCData::ascanBuffer[App::count_frames];
+
 void USPCData::Start()
 {
 	currentOffsetFrames = 0;	

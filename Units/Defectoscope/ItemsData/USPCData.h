@@ -9,7 +9,7 @@ class USPCData
 public:
 	int currentOffsetFrames;   ///<  Номер последнего кадра 
 	int currentOffsetZones;	   ///< номер смещения кадра в зоне
-	USPC7100_ASCANDATAHEADER ascanBuffer[App::count_frames];	///<собранные кадры
+	static USPC7100_ASCANDATAHEADER ascanBuffer[App::count_frames];	///<собранные кадры
 	int offsets[App::count_zones];  ///< смещение кадров по зонам
 	int offsSensor[App::count_sensors];
 	char commonStatus[App::count_zones];					///< общий статус по зонам

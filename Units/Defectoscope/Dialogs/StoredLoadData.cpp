@@ -81,7 +81,7 @@ void LoadDataDlg::Do(HWND h)
 		
 		__load__(o.sFile); 
 		wchar_t *s = o.sFile;
-		int len = wcslen(s);
+		int len = (int)wcslen(s);
 		int i = len - 1;
 		for(; i > 0; --i)
 		{
