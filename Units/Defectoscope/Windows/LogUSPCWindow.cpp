@@ -60,7 +60,7 @@ void LogUSPCWindow::Open()
 	WindowPosition::Get<LogUSPCWindow>(r);
 	HWND hh = WindowTemplate(&Singleton<LogUSPCWindow>::Instance(), L"События USPC", r.left, r.top, r.right, r.bottom);
 	SetWindowPos(hh, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-	DWORD dwStyle = GetWindowLongPtr(hh, GWL_STYLE);
+	LONG_PTR dwStyle = GetWindowLongPtr(hh, GWL_STYLE);
 	dwStyle &= ~(WS_MAXIMIZEBOX | WS_MINIMIZEBOX);
 	SetWindowLongPtr(hh, GWL_STYLE, dwStyle);
 	ShowWindow(hh, SW_SHOWNORMAL);

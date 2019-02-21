@@ -43,7 +43,7 @@ public:
 	~GridNotify();
 	void Size(int, int, int, int);
 	void Create(TCreate &, GridHandlers *);
-	unsigned Notify(TNotify &);
-	static unsigned OwnerNotify(TNotify &);
+	LRESULT Notify(TNotify &);
+	static LRESULT OwnerNotify(TNotify &);
 };
 

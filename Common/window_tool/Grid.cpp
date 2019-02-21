@@ -52,7 +52,7 @@ void GridNotify::Size(int x, int y, int width, int height)
 	MoveWindow(hWnd, x, y, width, height, TRUE);
 }
 //--------------------------------------------------------------------------------------------
-unsigned GridNotify::Notify(TNotify &m)
+LRESULT GridNotify::Notify(TNotify &m)
 {
 	switch (m.pnmh->code)
 	{
@@ -90,7 +90,7 @@ unsigned GridNotify::Notify(TNotify &m)
 	return DefWindowProc(m.hwnd, WM_NOTIFY, (WPARAM)m.idCtrl, (LPARAM)m.pnmh);
 }
 //---------------------------------------------------------------------------------------------
-unsigned GridNotify::OwnerNotify(TNotify &l)
+LRESULT GridNotify::OwnerNotify(TNotify &l)
 {
 	GridNotify *x = (GridNotify *)GetWindowLongPtr(l.pnmh->hwndFrom, GWLP_USERDATA);
 	if(0 == IsBadReadPtr(x, sizeof(x)))return x->Notify(l);
