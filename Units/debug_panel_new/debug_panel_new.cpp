@@ -15,7 +15,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		char *b = x.get();
 		if(NULL != b) printf(b);
-		Sleep(10);
 	}
 	return 0;
 }
