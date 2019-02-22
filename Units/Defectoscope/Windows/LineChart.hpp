@@ -158,6 +158,7 @@ namespace
 		int channel;
 		int zone;
 		int offs;
+		int count;
 		USPC7100_ASCANDATAHEADER *scan;
 	};
 
@@ -170,6 +171,7 @@ namespace
 			{
 				o->dataViewer.Do(p->zone, p->channel);
 				p->scan = o->dataViewer.scan[p->offs];
+				p->count = o->dataViewer.count;
 				typedef typename O::Parent::Parent TWhell;
 
 				o->offsetX = p->offs;
@@ -389,17 +391,14 @@ namespace
 			typedef typename T::sub_type Ascan;
 			ItemData<Ascan> &data = Singleton<ItemData<Ascan>>::Instance();
 			if(data.currentOffsetZones <= zone) return false;
-			int of = (data.offsets[zone + 1] - data.offsets[zone]) / App::count_sensors;
-			if(of < offs)
-			{
-				offs = of;
-			}
+			
 			if(offs < 0)
 			{
 				offs = 0;
 			}
 			__scan_data__ d = {sens, zone, offs, NULL};
 			TL::find<typename T::viewers_list, __scan__>()(&((T *)o)->viewers, &d);
+			if(offs >= d.count) offs = d.count - 1;
 			if(NULL != d.scan)
 			{
 				ScanWindow &s = Singleton<ScanWindow>::Instance();
