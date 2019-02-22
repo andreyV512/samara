@@ -99,7 +99,7 @@ ViewerDebugMess::~ViewerDebugMess()
 char *ViewerDebugMess::get()
 {
 	WaitForSingleObject(h, INFINITE);
-	while(map && map->tail != map->head)
+	while(map && map->tail < map->head)
 	{
 		if(map->head - map->tail > 256) map->tail = map->head + 256;
 		static char b[512];		
